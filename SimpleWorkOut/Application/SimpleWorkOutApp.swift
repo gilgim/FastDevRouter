@@ -12,6 +12,7 @@ struct SimpleWorkOutApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environment(\.managedObjectContext, Persistent.shared.container.viewContext)
         }
     }
 }

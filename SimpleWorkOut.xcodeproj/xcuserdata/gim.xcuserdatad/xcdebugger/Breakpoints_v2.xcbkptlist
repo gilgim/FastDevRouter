@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "CBBE0D06-77EF-4983-8374-51E9F7772A86"
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "20D258F6-36F2-485F-B865-5B08E9644F1E"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SimpleWorkOut/Exercise/ExerciseModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "71"
+            endingLineNumber = "71"
+            landmarkName = "delete(name:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "20D258F6-36F2-485F-B865-5B08E9644F1E - 3cb4906b24f6b8bb"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SimpleWorkOut.ExerciseModel.delect(name: Swift.String) -&gt; ()"
+                  moduleName = "SimpleWorkOut"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/gim/SimpleWorkOut/SimpleWorkOut/Exercise/ExerciseModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "71"
+                  endingLineNumber = "71"
+                  offsetFromSymbolStart = "212">
+               </Location>
+               <Location
+                  uuid = "20D258F6-36F2-485F-B865-5B08E9644F1E - 70f5764d2db27db9"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SimpleWorkOut.ExerciseModel.delete(name: Swift.String) -&gt; ()"
+                  moduleName = "SimpleWorkOut"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/gim/SimpleWorkOut/SimpleWorkOut/Exercise/ExerciseModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "71"
+                  endingLineNumber = "71"
+                  offsetFromSymbolStart = "212">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>
