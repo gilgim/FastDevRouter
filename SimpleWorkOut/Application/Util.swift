@@ -8,14 +8,6 @@
 import Foundation
 import CoreData
 
-//  MARK: Model
-protocol Model {
-    func create(object: NSManagedObject)
-    func read(key: String) -> [NSManagedObject]?
-    func update(object: NSManagedObject)
-    func delect(object: NSManagedObject)
-}
-
 //  MARK: Timer
 class CustomTimer: ObservableObject {
     public var secondTime: String {

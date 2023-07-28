@@ -7,6 +7,13 @@
 
 import Foundation
 
+struct WorkOutByExercise {
+    let name: String
+    let type: String
+    var set: Int
+    var rest: Int
+}
+
 class ExerciseViewModel: ObservableObject {
     let model = ExerciseModel()
     @Published public var error: ExerciseError? = nil {
@@ -18,6 +25,18 @@ class ExerciseViewModel: ObservableObject {
     }
     @Published public var isError: Bool = false
     @Published public var exercises: [(name: String, type: String)] = []
+    @Published public var selectExercise: WorkOutByExercise? = nil
+    @Published public var canWorkOut: Bool = false
+    public func setSelectExerciseSetAndRest(name: String, type: String) {
+        self.selectExercise = .init(name: name, type: type, set: 0, rest: 0)
+    }
+    
+    public func setSelectExerciseSetAndRest(set: Int?, rest: Int?) {
+        guard let set, let rest else {error = .NotWorkOutError; return}
+        self.selectExercise?.set = set
+        self.selectExercise?.rest = rest
+        self.canWorkOut = true
+    }
     
     public func createExercise(name: String, type: String? = nil) {
         do {

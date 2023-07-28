@@ -8,49 +8,33 @@
 import SwiftUI
 
 struct WorkOutView: View {
-    enum WorkOutState: String {
-        case start = "Start"
-        case stop = "Stop"
-        case finish = "Finish"
-    }
-    @ObservedObject private var timer: CustomTimer = .init()
-    @State private var workOutState: WorkOutState = .start
-    @State var setCount: String
-    @State var setRestTime: String
-    @State var currentSet: String = "1"
-    init(setCount: String, setRestTime: String) {
-        self.setCount = setCount
-        self.setRestTime = setRestTime
-    }
-    
+    @ObservedObject var viewModel: WorkOutViewModel
+    @State private var weightInput: String = ""
+    @State private var repsInput: String = ""
     var body: some View {
         VStack {
-            Text(timer.secondTime)
-            Text("\(currentSet)/\(setCount)")
+            Text(viewModel.totalWorkOutTimer.milliSecondTime)
+            Text("\(viewModel.currentSet)/\(viewModel.selectWorkOutExercise.set)")
+            TextField("Weigth", text: $weightInput)
+                .multilineTextAlignment(.center)
+                .font(.system(size: 18))
+            TextField("Count", text: $repsInput)
+                .multilineTextAlignment(.center)
+                .font(.system(size: 18))
             Spacer()
-            Button {
-                switch workOutState {
-                case.start:
-                    timer.start()
-                case.stop:
-                    timer.stop()
-                case.finish:
-                    timer.reset()
-                }
-                if workOutState == .start {
-                    workOutState = .stop
-                }
-                else if workOutState == .stop {
-                    workOutState = .start
-                }
+            Button{
+                viewModel.workOutButtonClickAction()
             }label: {
-                ZStack {
-                    RoundedRectangle(cornerRadius: 18)
-                        .frame(height: 120)
-                    Text(workOutState.rawValue)
-                        .foregroundColor(.white)
-                }
+                RoundedRectangle(cornerRadius: 13)
+                Text("")
+                    .foregroundColor(.white)
+                    .font(.system(size: 15, weight: .bold))
             }
+        }
+        .navigationTitle(Text(viewModel.selectWorkOutExercise.name))
+        .onChange(of: viewModel.currentWorkOutStatus) { _ in
+            weightInput = ""
+            repsInput = ""
         }
     }
 }
@@ -58,7 +42,7 @@ struct WorkOutView: View {
 struct WorkOutView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            WorkOutView(setCount: "0", setRestTime: "0")
+            WorkOutView(viewModel: .init(selectWorkOutExercise: .init(name: "ExampleExercise", type: "ExampleType", set: 5, rest: 90)))
         }
     }
 }

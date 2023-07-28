@@ -19,6 +19,8 @@
 		3796D5C82A6F6B83008FB26B /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3796D5C72A6F6B83008FB26B /* Errors.swift */; };
 		3796D5CC2A6F9EA4008FB26B /* WorkOutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3796D5CB2A6F9EA4008FB26B /* WorkOutView.swift */; };
 		3796D5CE2A6FA454008FB26B /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3796D5CD2A6FA454008FB26B /* Util.swift */; };
+		37AB84F52A73367A005CC217 /* WorkOutViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37AB84F42A73367A005CC217 /* WorkOutViewModel.swift */; };
+		37AB84F72A736B4C005CC217 /* WorkOutSaveModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37AB84F62A736B4C005CC217 /* WorkOutSaveModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +37,8 @@
 		3796D5C72A6F6B83008FB26B /* Errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
 		3796D5CB2A6F9EA4008FB26B /* WorkOutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkOutView.swift; sourceTree = "<group>"; };
 		3796D5CD2A6FA454008FB26B /* Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
+		37AB84F42A73367A005CC217 /* WorkOutViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkOutViewModel.swift; sourceTree = "<group>"; };
+		37AB84F62A736B4C005CC217 /* WorkOutSaveModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkOutSaveModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +110,8 @@
 			isa = PBXGroup;
 			children = (
 				3796D5CB2A6F9EA4008FB26B /* WorkOutView.swift */,
+				37AB84F42A73367A005CC217 /* WorkOutViewModel.swift */,
+				37AB84F62A736B4C005CC217 /* WorkOutSaveModel.swift */,
 			);
 			path = WorkOut;
 			sourceTree = "<group>";
@@ -193,6 +199,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				37AB84F72A736B4C005CC217 /* WorkOutSaveModel.swift in Sources */,
+				37AB84F52A73367A005CC217 /* WorkOutViewModel.swift in Sources */,
 				3796D5C32A6F40BD008FB26B /* Persistent.swift in Sources */,
 				370BAA172A6DF7B900725E2A /* WorkOutDataModel.xcdatamodeld in Sources */,
 				370BAA092A6DF27400725E2A /* ContentView.swift in Sources */,

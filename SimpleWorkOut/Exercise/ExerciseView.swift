@@ -34,6 +34,7 @@ struct ExerciseView: View {
                         Text(exercise.name)
                         Text(exercise.type)
                         Button("") {
+                            viewModel.setSelectExerciseSetAndRest(name: exercise.name, type: exercise.type)
                             isWorkOut = true
                         }
                     }
@@ -63,6 +64,7 @@ struct ExerciseView: View {
         .alert("Create Exercise", isPresented: $isAlertEnable) {
             TextField("Please input exercise name.", text: $exerciseNameInput)
             TextField("Please input exercise type.", text: $exerciseTypeInput)
+            Button("Cancle", role: .cancel) {}
             Button("OK") {
                 viewModel.createExercise(name: exerciseNameInput, type: exerciseTypeInput)
             }
@@ -70,12 +72,15 @@ struct ExerciseView: View {
         .alert("Setup Set and Rest", isPresented: $isWorkOut) {
             TextField("Please input exercise set", text: $setInput)
             TextField("Please input exercise rest time.", text: $restInput)
-            NavigationLink("OK") {
-                //  FIXME: 키보드 숫자 제안 및 숫자 범위 설정
-                WorkOutView(setCount: setInput, setRestTime: restInput)
+            Button("Cancle", role: .cancel) {}
+            Button("OK") {
+                viewModel.setSelectExerciseSetAndRest(set: Int(setInput), rest: Int(restInput))
             }
         }
         .alert(isPresented: $viewModel.isError, error: viewModel.error) {}
+        .navigationDestination(isPresented: $viewModel.canWorkOut) {
+            WorkOutView(viewModel: WorkOutViewModel(selectWorkOutExercise: viewModel.selectExercise))
+        }
     }
 }
 
