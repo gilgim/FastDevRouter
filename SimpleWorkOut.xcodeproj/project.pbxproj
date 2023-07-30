@@ -121,10 +121,10 @@
 			children = (
 				370BAA142A6DF79500725E2A /* CoreData */,
 				370BAA0A2A6DF27500725E2A /* Assets.xcassets */,
-				3796D5CD2A6FA454008FB26B /* Util.swift */,
-				3796D5C72A6F6B83008FB26B /* Errors.swift */,
 				370BAA062A6DF27400725E2A /* SimpleWorkOutApp.swift */,
 				370BAA082A6DF27400725E2A /* ContentView.swift */,
+				3796D5CD2A6FA454008FB26B /* Util.swift */,
+				3796D5C72A6F6B83008FB26B /* Errors.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";

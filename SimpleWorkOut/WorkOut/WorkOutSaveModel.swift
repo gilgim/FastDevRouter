@@ -22,9 +22,19 @@ class WorkOutSaveModel {
         let workOutExercise = WorkOutExercise(context: context)
         workOutExercise.date = .now
         workOutExercise.exercise = exercise
-    
+        
         for setData in workOutData.set {
-            workOutExercise.sets.add
+            let set = Set(context: context)
+            if setData.reps <= Int(Int16.max) && setData.reps >= Int(Int16.min) {
+                set.reps = Int16(setData.reps)
+            } else {
+                print("Cannot convert, value is out of range for Int16")
+                set.reps = Int16.max
+            }
+            set.weight = setData.weight
+            workOutExercise.addToSets(set)
         }
+        
+        Persistent.shared.saveContext()
     }
 }
