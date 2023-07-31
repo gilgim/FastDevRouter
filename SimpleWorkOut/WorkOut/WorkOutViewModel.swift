@@ -10,6 +10,7 @@ import Combine
 import SwiftUI
 
 struct UserWorkOut {
+    let id = UUID()
     let workOutExercise: WorkOutByExercise
     var totalDuration: Int
     var set: [Set]
@@ -49,6 +50,7 @@ class WorkOutViewModel: ObservableObject {
         }
     }
     @Published public var isError: Bool = false
+    
     @Published var isFinishWorkOut = false
     
     @Published var totalWorkOutTimer: CustomTimer = .init()
@@ -110,7 +112,7 @@ class WorkOutViewModel: ObservableObject {
     
     public func recordWeigthAndReps(weight: Double?, reps: Int?) {
         guard let weight, let reps else { error = .RecordError; return }
-        let restDuration = restWorkOutTimer.getTime()
+        let restDuration = restWorkOutTimer.getDefaultTime() - restWorkOutTimer.getTime()
         let exerciseDuration = singleWorkOutTimer.getTime()
         self.workOutData.set.append(.init(setNumber: currentSet, weight: weight, reps: reps, restDuration: restDuration, exerciseDuration: exerciseDuration))
 
@@ -155,6 +157,7 @@ class WorkOutViewModel: ObservableObject {
                 }, cancelButtonAction: {})
             }
             else {
+                self.isAlert = false
                 self.recordWeigthAndReps(weight: self.weightStorage, reps: self.repsStorage)
                 self.currentWorkOutStatus = .beforeWorkOut
                 self.currentSet += 1
@@ -171,6 +174,7 @@ class WorkOutViewModel: ObservableObject {
                 }, cancelButtonAction: {})
             }
             else {
+                self.isAlert = false
                 self.recordWeigthAndReps(weight: self.weightStorage, reps: self.repsStorage)
                 self.workOutData.totalDuration = self.totalWorkOutTimer.getTime()
                 self.isFinishWorkOut = true
@@ -185,6 +189,7 @@ class WorkOutViewModel: ObservableObject {
         else  if currentWorkOutStatus == .afterWorkOut {
             restWorkOutTimer.minusTime(time: AppLifecycleManager.shared.backgroundElapesdTime)
         }
+        totalWorkOutTimer.addTime(time: AppLifecycleManager.shared.backgroundElapesdTime)
     }
     private func sceneInactiveMethod() {}
     

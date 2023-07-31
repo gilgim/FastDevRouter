@@ -13,13 +13,14 @@ class WorkOutSaveModel {
     func recordWorkOut(workOutData: UserWorkOut) throws {
         
         let fetchRequset = NSFetchRequest<NSFetchRequestResult>(entityName: "Exercise")
-        fetchRequset.predicate = .init(format: "nmae == %@", workOutData.workOutExercise.name)
+        fetchRequset.predicate = .init(format: "name == %@", workOutData.workOutExercise.name)
         
         guard let result = try? context.fetch(fetchRequset) else { throw ExerciseError.ReadError }
         guard let exercises = result as? [Exercise], exercises.count > 0 else { throw ExerciseError.ReadError}
         
         let exercise = exercises[0]
         let workOutExercise = WorkOutExercise(context: context)
+        workOutExercise.id = workOutData.id
         workOutExercise.date = .now
         workOutExercise.exercise = exercise
         workOutExercise.totalDuration = Util.intToInt32(int: workOutData.totalDuration)

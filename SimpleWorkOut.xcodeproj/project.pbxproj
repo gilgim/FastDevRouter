@@ -21,6 +21,7 @@
 		3796D5CE2A6FA454008FB26B /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3796D5CD2A6FA454008FB26B /* Util.swift */; };
 		37AB84F52A73367A005CC217 /* WorkOutViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37AB84F42A73367A005CC217 /* WorkOutViewModel.swift */; };
 		37AB84F72A736B4C005CC217 /* WorkOutSaveModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37AB84F62A736B4C005CC217 /* WorkOutSaveModel.swift */; };
+		B068ED412A77EAD0007FF13F /* WorkOutRecordingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B068ED402A77EAD0007FF13F /* WorkOutRecordingView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +40,7 @@
 		3796D5CD2A6FA454008FB26B /* Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
 		37AB84F42A73367A005CC217 /* WorkOutViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkOutViewModel.swift; sourceTree = "<group>"; };
 		37AB84F62A736B4C005CC217 /* WorkOutSaveModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkOutSaveModel.swift; sourceTree = "<group>"; };
+		B068ED402A77EAD0007FF13F /* WorkOutRecordingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkOutRecordingView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,9 +111,11 @@
 		3796D5C92A6F9E72008FB26B /* WorkOut */ = {
 			isa = PBXGroup;
 			children = (
+				B068ED402A77EAD0007FF13F /* WorkOutRecordingView.swift */,
 				3796D5CB2A6F9EA4008FB26B /* WorkOutView.swift */,
 				37AB84F42A73367A005CC217 /* WorkOutViewModel.swift */,
 				37AB84F62A736B4C005CC217 /* WorkOutSaveModel.swift */,
+				B068ED3F2A77EAAD007FF13F /* WorkOutRecording */,
 			);
 			path = WorkOut;
 			sourceTree = "<group>";
@@ -127,6 +131,13 @@
 				3796D5C72A6F6B83008FB26B /* Errors.swift */,
 			);
 			path = Application;
+			sourceTree = "<group>";
+		};
+		B068ED3F2A77EAAD007FF13F /* WorkOutRecording */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = WorkOutRecording;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -209,6 +220,7 @@
 				370BAA072A6DF27400725E2A /* SimpleWorkOutApp.swift in Sources */,
 				370AC8462A70CAB60057E089 /* ExerciseViewModel.swift in Sources */,
 				3796D5C82A6F6B83008FB26B /* Errors.swift in Sources */,
+				B068ED412A77EAD0007FF13F /* WorkOutRecordingView.swift in Sources */,
 				370AC8442A70ADCE0057E089 /* ExerciseModel.swift in Sources */,
 				3796D5C52A6F672F008FB26B /* ExerciseView.swift in Sources */,
 			);

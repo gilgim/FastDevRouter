@@ -102,7 +102,7 @@ class CustomMinusTimer: ObservableObject {
             return String(format: "%02d.%02d.%02d", intTime / 6000, (intTime / 100) % 60, intTime % 100)
         }
     }
-    @Published public var intTime: Int
+    @Published private var intTime: Int
     private var defaultTime: Int
     init(setTime: Int) {
         self.intTime = setTime
@@ -127,6 +127,9 @@ class CustomMinusTimer: ObservableObject {
     }
     public func getTime() -> Int {
         return intTime
+    }
+    public func getDefaultTime() -> Int {
+        return defaultTime
     }
     public func minusTime(time: Int) {
         intTime -= time

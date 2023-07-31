@@ -49,26 +49,28 @@ struct WorkOutView: View {
         }
         .onChange(of: viewModel.isFinishWorkOut, perform: { isFinish in
             if isFinish {
-//                viewModel.recordWorkOut()
+                viewModel.recordWorkOut()
             }
         })
         .navigationTitle(Text(viewModel.selectWorkOutExercise.name))
-        .alert(isPresented: $viewModel.isAlert) {
-            Alert(
-                title: Text(viewModel.customAlert?.title ?? "error"),
-                message: Text(viewModel.customAlert?.message ?? ""),
-                primaryButton: .default(Text("OK"), action: {
-                    viewModel.customAlert?.okButtonAction?()
-                }),
-                secondaryButton: .cancel(Text("Cancel"), action: {
-                    viewModel.customAlert?.cancelButtonAction?()
-                })
-            )
-        }
+        .alert(viewModel.customAlert?.title ?? "Title", isPresented: $viewModel.isAlert, actions: {
+            Button("Ok") {
+                if let okAction = viewModel.customAlert?.okButtonAction {
+                    okAction()
+                }
+            }
+            Button("Cancel",role: .cancel) {
+                if let cancelAction = viewModel.customAlert?.cancelButtonAction {
+                    cancelAction()
+                }
+            }
+        }, message: {
+            Text(viewModel.customAlert?.message ?? "Message")
+        })
         .sheet(isPresented: $viewModel.isFinishWorkOut) {
             dismiss()
         } content: {
-            Text("Record")
+            WorkOutRecordingView(workoutID: viewModel.workOutData.id)
         }
 
     }
