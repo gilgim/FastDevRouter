@@ -52,5 +52,69 @@
             </Locations>
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A925ADD4-6D90-4116-94C0-E113EFC2A8A3"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SimpleWorkOut/WorkOut/WorkOutViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "74"
+            endingLineNumber = "74"
+            landmarkName = "init(selectWorkOutExercise:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "A925ADD4-6D90-4116-94C0-E113EFC2A8A3 - 3c2064bdfe40e260"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SimpleWorkOut.WorkOutViewModel.init(selectWorkOutExercise: Swift.Optional&lt;SimpleWorkOut.WorkOutByExercise&gt;) -&gt; SimpleWorkOut.WorkOutViewModel"
+                  moduleName = "SimpleWorkOut"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/gim/SimpleWorkOut/SimpleWorkOut/WorkOut/WorkOutViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "57"
+                  endingLineNumber = "57"
+                  offsetFromSymbolStart = "1480">
+               </Location>
+               <Location
+                  uuid = "A925ADD4-6D90-4116-94C0-E113EFC2A8A3 - 3c2064bdfe40e093"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SimpleWorkOut.WorkOutViewModel.init(selectWorkOutExercise: Swift.Optional&lt;SimpleWorkOut.WorkOutByExercise&gt;) -&gt; SimpleWorkOut.WorkOutViewModel"
+                  moduleName = "SimpleWorkOut"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/gim/SimpleWorkOut/SimpleWorkOut/WorkOut/WorkOutViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "74"
+                  endingLineNumber = "74"
+                  offsetFromSymbolStart = "1604">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C5AA75B7-4DE4-4A97-8A9C-B32DE92A52A4"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SimpleWorkOut/WorkOut/WorkOutViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "38"
+            endingLineNumber = "38"
+            landmarkName = "customAlert"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

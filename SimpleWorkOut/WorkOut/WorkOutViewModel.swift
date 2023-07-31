@@ -7,17 +7,21 @@
 
 import Foundation
 import Combine
+import SwiftUI
 
 struct UserWorkOut {
     let workOutExercise: WorkOutByExercise
+    var totalDuration: Int
     var set: [Set]
     struct Set {
+        var setNumber: Int
         var weight: Double
         var reps: Int
         var restDuration: Int
         var exerciseDuration: Int
     }
 }
+
 class WorkOutViewModel: ObservableObject {
     enum WorkOutStatus: String {
         case beforeWorkOut = "BeforeWorkOut"
@@ -26,8 +30,16 @@ class WorkOutViewModel: ObservableObject {
         case finish = "Finish"
     }
     private let model = WorkOutSaveModel()
-    
     var cancellable: AnyCancellable?
+    
+    @Published public var isAlert: Bool = false
+    @Published public var customAlert: CustomAlert? = nil {
+        didSet {
+            if customAlert != nil {
+                isAlert = true
+            }
+        }
+    }
     
     @Published public var error: WorkOutError? = nil {
         didSet {
@@ -37,14 +49,18 @@ class WorkOutViewModel: ObservableObject {
         }
     }
     @Published public var isError: Bool = false
+    @Published var isFinishWorkOut = false
+    
     @Published var totalWorkOutTimer: CustomTimer = .init()
     @Published var singleWorkOutTimer: CustomTimer = .init()
     @Published var restWorkOutTimer: CustomMinusTimer
+    
     @Published var selectWorkOutExercise: WorkOutByExercise
     @Published var currentSet: Int = 1
-    @Published var workOutButtonText: String = ""
-    @Published var isFinishWorkOut = false
     @Published var currentWorkOutStatus: WorkOutStatus = .beforeWorkOut
+    
+    private var weightStorage: Double = 10
+    private var repsStorage: Int = 12
     
     var workOutData: UserWorkOut
     
@@ -54,9 +70,11 @@ class WorkOutViewModel: ObservableObject {
            _selectWorkOutExercise = selectWorkOutExercise
         }
         self.selectWorkOutExercise = _selectWorkOutExercise
-        self.workOutData = .init(workOutExercise:_selectWorkOutExercise, set: [])
+        self.workOutData = .init(workOutExercise:_selectWorkOutExercise, totalDuration: 0, set: [])
         self.restWorkOutTimer = .init(setTime: _selectWorkOutExercise.rest)
-        
+        self.restWorkOutTimer.timerStopClosure = { restTime in
+            self.restFinish(restTime: restTime)
+        }
         cancellable = AppLifecycleManager.shared.appState.sink(receiveValue: { [weak self] state in
             guard let self else {return}
             switch state {
@@ -71,7 +89,16 @@ class WorkOutViewModel: ObservableObject {
             }
         })
     }
-    
+    public func setWeightAndReps(weight: String, reps: String) {
+        if let weight = Double(weight), let reps = Int(reps) {
+            self.weightStorage = weight
+            self.repsStorage = reps
+        }
+        else {
+            self.weightStorage = 10
+            self.repsStorage = 12
+        }
+    }
     public func recordWorkOut() {
         do {
             try model.recordWorkOut(workOutData: self.workOutData)
@@ -85,41 +112,81 @@ class WorkOutViewModel: ObservableObject {
         guard let weight, let reps else { error = .RecordError; return }
         let restDuration = restWorkOutTimer.getTime()
         let exerciseDuration = singleWorkOutTimer.getTime()
-        self.workOutData.set.append(.init(weight: weight, reps: reps, restDuration: restDuration, exerciseDuration: exerciseDuration))
-        singleWorkOutTimer.reset()
-        restWorkOutTimer.reset()
+        self.workOutData.set.append(.init(setNumber: currentSet, weight: weight, reps: reps, restDuration: restDuration, exerciseDuration: exerciseDuration))
+
+    }
+    
+    public func workOutStart() {
+        totalWorkOutTimer.start()
     }
     
     public func workOutButtonClickAction() {
+        
         switch currentWorkOutStatus {
         case .beforeWorkOut:
-            totalWorkOutTimer.start()
+            restWorkOutTimer.stop()
+            restWorkOutTimer.reset()
+            singleWorkOutTimer.reset()
             singleWorkOutTimer.start()
             currentWorkOutStatus = .workOut
+            
         case .workOut:
             currentWorkOutStatus = .afterWorkOut
             singleWorkOutTimer.stop()
+            restWorkOutTimer.start()
+            
         case .afterWorkOut:
-            if currentSet <= selectWorkOutExercise.set {
-                currentWorkOutStatus = .beforeWorkOut
-                
-            }
-            else {
-                currentWorkOutStatus = .finish
-                isFinishWorkOut = true
-            }
+            restFinish(restTime: restWorkOutTimer.getTime())
+            
         case .finish:
             break
         }
     }
     
-    private func sceneActiveMethod() {
-        
+    public func restFinish(restTime: Int) {
+        if currentSet < selectWorkOutExercise.set {
+            if restTime > 0 {
+                let title = "Rest End"
+                let massege = "Are you ending your rest period"
+                customAlert = .init(title: title, message: massege, okButtonAction: {
+                    self.recordWeigthAndReps(weight: self.weightStorage, reps: self.repsStorage)
+                    self.currentWorkOutStatus = .beforeWorkOut
+                    self.currentSet += 1
+                }, cancelButtonAction: {})
+            }
+            else {
+                self.recordWeigthAndReps(weight: self.weightStorage, reps: self.repsStorage)
+                self.currentWorkOutStatus = .beforeWorkOut
+                self.currentSet += 1
+            }
+        }
+        else {
+            if restTime > 0 {
+                let title = "Rest End"
+                let massege = "Are you ending your rest period"
+                customAlert = .init(title: title, message: massege, okButtonAction: {
+                    self.recordWeigthAndReps(weight: self.weightStorage, reps: self.repsStorage)
+                    self.workOutData.totalDuration = self.totalWorkOutTimer.getTime()
+                    self.isFinishWorkOut = true
+                }, cancelButtonAction: {})
+            }
+            else {
+                self.recordWeigthAndReps(weight: self.weightStorage, reps: self.repsStorage)
+                self.workOutData.totalDuration = self.totalWorkOutTimer.getTime()
+                self.isFinishWorkOut = true
+            }
+        }
     }
     
-    private func sceneInactiveMethod() {
-        
+    private func sceneActiveMethod() {
+        if currentWorkOutStatus == .workOut {
+            singleWorkOutTimer.addTime(time: AppLifecycleManager.shared.backgroundElapesdTime)
+        }
+        else  if currentWorkOutStatus == .afterWorkOut {
+            restWorkOutTimer.minusTime(time: AppLifecycleManager.shared.backgroundElapesdTime)
+        }
     }
+    private func sceneInactiveMethod() {}
     
     private func sceneBackgroundMethod() {
         

@@ -22,16 +22,16 @@ class WorkOutSaveModel {
         let workOutExercise = WorkOutExercise(context: context)
         workOutExercise.date = .now
         workOutExercise.exercise = exercise
+        workOutExercise.totalDuration = Util.intToInt32(int: workOutData.totalDuration)
         
         for setData in workOutData.set {
-            let set = Set(context: context)
-            if setData.reps <= Int(Int16.max) && setData.reps >= Int(Int16.min) {
-                set.reps = Int16(setData.reps)
-            } else {
-                print("Cannot convert, value is out of range for Int16")
-                set.reps = Int16.max
-            }
+            let set = ExerciseSet(context: context)
+            set.setNumber = Util.intToInt16(int: setData.setNumber)
             set.weight = setData.weight
+            set.reps = Util.intToInt16(int: setData.reps)
+            set.exerciseDuration = Util.intToInt32(int: setData.exerciseDuration)
+            set.restDuration = Util.intToInt32(int: setData.restDuration)
+            
             workOutExercise.addToSets(set)
         }
         
