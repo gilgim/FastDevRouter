@@ -92,8 +92,9 @@ class CustomMinusTimer: ObservableObject {
     public var timerStopClosure: ((Int) -> ())?
     public var secondTime: String {
         get {
-            let minutes = Int(intTime) / 60
-            let seconds = Int(intTime) % 60
+            let totalSeconds = Double(intTime) / 100.0
+            let minutes = Int(totalSeconds) / 60
+            let seconds = Int(totalSeconds) % 60
             return String(format: "%02d:%02d", minutes, seconds)
         }
     }
@@ -110,7 +111,7 @@ class CustomMinusTimer: ObservableObject {
     }
     private var timer: Timer?
     public func start() {
-        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true, block: { _ in
+        timer = Timer.scheduledTimer(withTimeInterval: 0.01, repeats: true, block: { _ in
             self.intTime -= 1
             if self.intTime == 0 {
                 self.timerStopClosure?(self.intTime)

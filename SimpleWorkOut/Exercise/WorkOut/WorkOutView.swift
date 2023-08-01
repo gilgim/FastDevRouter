@@ -49,6 +49,7 @@ struct WorkOutView: View {
         }
         .onChange(of: viewModel.isFinishWorkOut, perform: { isFinish in
             if isFinish {
+                viewModel.timerStop()
                 viewModel.recordWorkOut()
             }
         })
@@ -81,7 +82,7 @@ struct WorkOutView: View {
         case.workOut:
             return viewModel.singleWorkOutTimer.milliSecondTime
         case.afterWorkOut:
-            return viewModel.restWorkOutTimer.secondTime
+            return viewModel.restWorkOutTimer.milliSecondTime
         case.finish:
             return "Finish"
         }

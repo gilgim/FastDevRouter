@@ -5,7 +5,7 @@
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="name" attributeType="String"/>
         <attribute name="type" optional="YES" attributeType="String"/>
-        <relationship name="workOutExercise" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="WorkOutExercise" inverseName="exercise" inverseEntity="WorkOutExercise"/>
+        <relationship name="workOutExercise" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="WorkOutExercise" inverseName="exercise" inverseEntity="WorkOutExercise"/>
     </entity>
     <entity name="ExerciseSet" representedClassName="ExerciseSet" syncable="YES" codeGenerationType="class">
         <attribute name="exerciseDuration" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>

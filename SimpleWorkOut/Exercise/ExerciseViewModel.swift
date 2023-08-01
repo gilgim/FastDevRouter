@@ -34,7 +34,7 @@ class ExerciseViewModel: ObservableObject {
     public func setSelectExerciseSetAndRest(set: Int?, rest: Int?) {
         guard let set, let rest else {error = .NotWorkOutError; return}
         self.selectExercise?.set = set
-        self.selectExercise?.rest = rest
+        self.selectExercise?.rest = rest*100
         self.canWorkOut = true
     }
     

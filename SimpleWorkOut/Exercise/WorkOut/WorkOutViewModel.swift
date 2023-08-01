@@ -181,7 +181,11 @@ class WorkOutViewModel: ObservableObject {
             }
         }
     }
-    
+    public func timerStop() {
+        totalWorkOutTimer.stop()
+        singleWorkOutTimer.stop()
+        restWorkOutTimer.stop()
+    }
     private func sceneActiveMethod() {
         if currentWorkOutStatus == .workOut {
             singleWorkOutTimer.addTime(time: AppLifecycleManager.shared.backgroundElapesdTime)

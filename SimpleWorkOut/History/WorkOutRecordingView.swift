@@ -29,8 +29,8 @@ struct WorkOutRecordingView: View {
             NavigationStack {
                 VStack(alignment: .leading) {
                     Text("Total WorkOut Time : \(Util.intToSecond(intTime: Int(workoutExercise.totalDuration)))")
-                    Text("Total Exercise Time : \(Util.intToSecond(intTime: sets.map({Int($0.exerciseDuration)}).reduce(0, {$0+$1})))")
-                    Text("Rest Time : \(Util.intToSecond(intTime: sets.map({Int($0.restDuration)}).reduce(0, {$0+$1})))")
+                    Text("Total Exercise Time : \(Util.intToMilliSecond(intTime: sets.map({Int($0.exerciseDuration)}).reduce(0, {$0+$1})))")
+                    Text("Rest Time : \(Util.intToMilliSecond(intTime: sets.map({Int($0.restDuration)}).reduce(0, {$0+$1})))")
                     Text("Total Volum : \(sets.map({($0.weight*Double($0.reps))}).reduce(0, {$0+$1}))")
                     Text("Doing Set : \(sets.count)")
                     Text("Weight Average : \(sets.map({$0.weight}).reduce(0, {$0+$1}) / Double(sets.count))")
