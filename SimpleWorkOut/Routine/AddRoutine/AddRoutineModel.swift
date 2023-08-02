@@ -10,20 +10,34 @@ import CoreData
 
 class AddRoutineModel {
     let context = Persistent.shared.container.viewContext
-    func create(name: String, type: String? = nil) throws {
-        guard name != "" else { throw ExerciseError.CreateError }
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Exercise")
+    func create(name: String, type: String? = nil, exercises: [WorkOutByExercise]) throws {
+        guard name != "" else { throw RoutineError.EmptyCreateError }
+        guard !exercises.isEmpty else { throw RoutineError.EmptyCreateError }
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Routine")
         fetchRequest.predicate = NSPredicate(format: "name == %@", name)
         
-        guard let result = try? context.fetch(fetchRequest) else { throw ExerciseError.ReadError}
-        let exercises = result as? [Exercise]
-        guard exercises?.count ?? 0 <= 0 else { throw ExerciseError.DuplicateError}
+        guard let result = try? context.fetch(fetchRequest) else { throw RoutineError.ReadError}
+        let routines = result as? [Exercise]
+        guard routines?.count ?? 0 <= 0 else { throw RoutineError.DuplicateError}
         
-        let exercise = Exercise(context: context)
-        exercise.id = .init()
-        exercise.name = name
-        exercise.type = type
-        exercise.create_date = .now
+        let routine = Routine(context: context)
+        routine.id = .init()
+        routine.name = name
+        routine.type = type
+        routine.create_date = .now
+        
+        for exercise in exercises {
+            let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Exercise")
+            fetchRequest.predicate = NSPredicate(format: "name == %@", exercise.name)
+            guard let exercises = try? context.fetch(fetchRequest) as? [Exercise], exercises.count > 0 else {throw RoutineError.ReadExerciseError}
+            
+            let routineExercise = RoutineExercise(context: context)
+            routineExercise.exercise = exercises[0]
+            routineExercise.restDuration = Util.intToInt32(int: exercise.rest)
+            routineExercise.setReps = Util.intToInt16(int: exercise.set)
+            
+            routine.addToRoutineExercise(routineExercise)
+        }
         Persistent.shared.saveContext()
     }
     
@@ -35,36 +49,6 @@ class AddRoutineModel {
         } catch {
             print("Failed to fetch exercise: \(error)")
             return nil
-        }
-    }
-    
-    func update(name: String, type: String? = nil) {
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Exercise")
-        fetchRequest.predicate = NSPredicate(format: "name == %@", name)
-        do {
-            let result = try context.fetch(fetchRequest)
-            let exercises = result as? [Exercise]
-            let exercise = exercises?.first
-            exercise?.name = name
-            exercise?.type = type
-            Persistent.shared.saveContext()
-        } catch {
-            print("Failed to fetch exercise: \(error)")
-        }
-    }
-    
-    func delete(name: String) {
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Exercise")
-        fetchRequest.predicate = NSPredicate(format: "name == %@", name)
-        do {
-            let result = try context.fetch(fetchRequest)
-            let exercises = result as? [Exercise]
-            if let exercise = exercises?.first {
-                context.delete(exercise)
-                Persistent.shared.saveContext()
-            }
-        } catch {
-            print("Failed to fetch exercise: \(error)")
         }
     }
 }

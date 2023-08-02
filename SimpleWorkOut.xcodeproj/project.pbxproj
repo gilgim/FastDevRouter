@@ -47,6 +47,7 @@
 		37753B342A78AE58000C463E /* AddRoutineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRoutineView.swift; sourceTree = "<group>"; };
 		37753B362A78AE71000C463E /* AddRoutineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRoutineViewModel.swift; sourceTree = "<group>"; };
 		37753B382A78AE7D000C463E /* AddRoutineModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRoutineModel.swift; sourceTree = "<group>"; };
+		377DD18F2A7A0D61001A9CEA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		3796D5C22A6F40BD008FB26B /* Persistent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistent.swift; sourceTree = "<group>"; };
 		3796D5C42A6F672F008FB26B /* ExerciseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseView.swift; sourceTree = "<group>"; };
 		3796D5C72A6F6B83008FB26B /* Errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
@@ -87,8 +88,10 @@
 		370BAA052A6DF27400725E2A /* SimpleWorkOut */ = {
 			isa = PBXGroup;
 			children = (
+				377DD18F2A7A0D61001A9CEA /* Info.plist */,
 				3796D5CA2A6F9E7B008FB26B /* Application */,
 				37753B292A787FD6000C463E /* History */,
+				3796D5C92A6F9E72008FB26B /* WorkOut */,
 				37753B2C2A789DBF000C463E /* Routine */,
 				3796D5C62A6F673A008FB26B /* Exercise */,
 				370BAA0C2A6DF27500725E2A /* Preview Content */,
@@ -146,7 +149,6 @@
 		3796D5C62A6F673A008FB26B /* Exercise */ = {
 			isa = PBXGroup;
 			children = (
-				3796D5C92A6F9E72008FB26B /* WorkOut */,
 				3796D5C42A6F672F008FB26B /* ExerciseView.swift */,
 				370AC8452A70CAB60057E089 /* ExerciseViewModel.swift */,
 				370AC8432A70ADCE0057E089 /* ExerciseModel.swift */,
@@ -398,6 +400,7 @@
 				DEVELOPMENT_TEAM = AZQ9YD7HMA;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SimpleWorkOut/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -427,6 +430,7 @@
 				DEVELOPMENT_TEAM = AZQ9YD7HMA;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SimpleWorkOut/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

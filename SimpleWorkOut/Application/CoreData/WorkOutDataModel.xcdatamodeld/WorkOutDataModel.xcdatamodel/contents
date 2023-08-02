@@ -5,6 +5,7 @@
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="name" attributeType="String"/>
         <attribute name="type" optional="YES" attributeType="String"/>
+        <relationship name="routineExercise" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="RoutineExercise" inverseName="exercise" inverseEntity="RoutineExercise"/>
         <relationship name="workOutExercise" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="WorkOutExercise" inverseName="exercise" inverseEntity="WorkOutExercise"/>
     </entity>
     <entity name="ExerciseSet" representedClassName="ExerciseSet" syncable="YES" codeGenerationType="class">
@@ -14,6 +15,19 @@
         <attribute name="setNumber" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="weight" optional="YES" attributeType="Double" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="workOutExercise" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="WorkOutExercise" inverseName="sets" inverseEntity="WorkOutExercise"/>
+    </entity>
+    <entity name="Routine" representedClassName="Routine" syncable="YES" codeGenerationType="class">
+        <attribute name="create_date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="type" optional="YES" attributeType="String"/>
+        <relationship name="routineExercise" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="RoutineExercise" inverseName="routine" inverseEntity="RoutineExercise"/>
+    </entity>
+    <entity name="RoutineExercise" representedClassName="RoutineExercise" syncable="YES" codeGenerationType="class">
+        <attribute name="restDuration" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="setReps" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="exercise" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Exercise" inverseName="routineExercise" inverseEntity="Exercise"/>
+        <relationship name="routine" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Routine" inverseName="routineExercise" inverseEntity="Routine"/>
     </entity>
     <entity name="WorkOutExercise" representedClassName="WorkOutExercise" syncable="YES" codeGenerationType="class">
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>

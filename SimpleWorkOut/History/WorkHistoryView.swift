@@ -27,6 +27,7 @@ struct WorkHistoryView: View {
                     }label: {
                         Image(systemName: "trash")
                     }
+                    .tint(.red)
                 }
             }
         }

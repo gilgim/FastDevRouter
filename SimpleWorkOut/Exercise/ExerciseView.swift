@@ -74,7 +74,7 @@ struct ExerciseView: View {
             TextField("Please input exercise rest time.", text: $restInput)
             Button("Cancle", role: .cancel) {}
             Button("OK") {
-                viewModel.setSelectExerciseSetAndRest(set: Int(setInput), rest: Int(restInput))
+                viewModel.setSelectExerciseSetAndRest(set: setInput, rest: restInput)
             }
         }
         .alert(isPresented: $viewModel.isError, error: viewModel.error) {}

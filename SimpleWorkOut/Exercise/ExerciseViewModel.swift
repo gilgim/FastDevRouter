@@ -8,6 +8,9 @@
 import Foundation
 
 struct WorkOutByExercise {
+    //  [Routine]
+    //  여러개의 공통 운동을 쓰기위해서 추가된 id
+    var id = UUID()
     let name: String
     let type: String
     var set: Int
@@ -31,8 +34,8 @@ class ExerciseViewModel: ObservableObject {
         self.selectExercise = .init(name: name, type: type, set: 0, rest: 0)
     }
     
-    public func setSelectExerciseSetAndRest(set: Int?, rest: Int?) {
-        guard let set, let rest else {error = .NotWorkOutError; return}
+    public func setSelectExerciseSetAndRest(set: String, rest: String) {
+        guard let set = Int(set), let rest = Int(rest) else {error = .NotWorkOutError; return}
         self.selectExercise?.set = set
         self.selectExercise?.rest = rest*100
         self.canWorkOut = true

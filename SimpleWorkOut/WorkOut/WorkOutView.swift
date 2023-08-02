@@ -9,7 +9,7 @@ import SwiftUI
 
 struct WorkOutView: View {
     @Environment(\.dismiss) private var dismiss
-    @ObservedObject var viewModel: WorkOutViewModel
+    @StateObject var viewModel: WorkOutViewModel
     @State private var weightInput: String = ""
     @State private var repsInput: String = ""
     var body: some View {

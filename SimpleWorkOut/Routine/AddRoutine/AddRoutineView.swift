@@ -8,21 +8,43 @@
 import SwiftUI
 
 struct AddRoutineView: View {
+    @Environment(\.dismiss) private var dismiss
     @ObservedObject private var viewModel = AddRoutineViewModel()
-    @State var arr: [Int] = [1,2,3]
-    @State var isSelectBar = false
-    @State var text: String = ""
-    @FocusState var isfocus
+    @State var selectExerciseStorage: WorkOutByExercise? = nil
+    @State var nameInput: String = ""
+    @State var typeInput: String = ""
+    @State var setInputText: String = ""
+    @State var restInputText: String = ""
+    @State var isShowSetAndRest = false {
+        didSet {
+            setInputText = ""
+            restInputText = ""
+        }
+    }
+    @State var isShowCreateAlert = false {
+        didSet {
+            nameInput = ""
+            typeInput = ""
+        }
+    }
     var body: some View {
-        ZStack {
-            VStack {
-                List {
-                    ForEach (arr, id: \.self) { i in
-                        Text("\(i)")
+        VStack {
+            List {
+                ForEach(viewModel.selectExercises, id: \.id) { exercise in
+                    HStack {
+                        Text(exercise.name)
+                        Text(exercise.type)
+                        Text("\(exercise.set)")
+                        Text("\(Util.intToSecond(intTime: exercise.rest))")
                     }
                 }
-                List {
-                    ForEach(viewModel.allExercises, id: \.name) { exercise in
+            }
+            List {
+                ForEach(viewModel.allExercises, id: \.name) { exercise in
+                    Button {
+                        selectExerciseStorage = exercise
+                        isShowSetAndRest = true
+                    }label: {
                         HStack {
                             Text(exercise.name)
                             Text(exercise.type)
@@ -30,27 +52,35 @@ struct AddRoutineView: View {
                     }
                 }
             }
-            if isSelectBar {
-                GeometryReader { geo in
-                    VStack {
-                        Spacer()
-                        ZStack {
-                            Rectangle()
-                                .foregroundColor(.white)
-                            Button("ok") {
-                                withAnimation {
-                                    self.isSelectBar = false
-                                }
-                            }
-                            TextField("set", text: $text)
-                                .focused($isfocus)
-                        }
-                        .frame(height: 120)
-                        .padding(.bottom, 12)
-                    }
+        }
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button("Save") {
+                    self.isShowCreateAlert = true
                 }
             }
         }
+        .alert("Create Exercise", isPresented: $isShowCreateAlert) {
+            TextField("Please input routine name.", text: $nameInput)
+            TextField("Please input routine type.", text: $typeInput)
+            Button("Cancle", role: .cancel) {}
+            Button("OK") {
+                viewModel.createRoutine(name: nameInput, type: typeInput) {
+                    self.dismiss()
+                }
+            }
+        }
+        .alert("Add Exercise", isPresented: $isShowSetAndRest) {
+            TextField("Please input set", text: $setInputText)
+            TextField("Please input rest", text: $restInputText)
+            Button("OK") {
+                if let selectExerciseStorage {
+                    viewModel.addExercise(exercise: selectExerciseStorage, setReps: setInputText, restDuration: restInputText)
+                }
+            }
+            Button("Cancel", role: .cancel) {}
+        }
+        .alert(isPresented: $viewModel.isError, error: viewModel.error) {}
     }
 }
 

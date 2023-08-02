@@ -8,12 +8,32 @@
 import SwiftUI
 
 struct RoutineView: View {
+    @ObservedObject private var viewModel = RoutineViewModel()
     @State private var isShowAddRoutineView: Bool = false
     var body: some View {
         VStack {
             List {
-               
+                ForEach(viewModel.routines, id: \.name) { routine in
+                    HStack {
+                        Text(routine.name)
+                        if let type = routine.type {
+                            Text(type)
+                        }
+                        Text("exercise : \(routine.exercises.count)")
+                    }
+                    .swipeActions {
+                        Button {
+                            viewModel.delectRoutine(name: routine.name)
+                        }label: {
+                            Image(systemName: "trash")
+                        }
+                        .tint(.red)
+                    }
+                }
             }
+        }
+        .onAppear() {
+            viewModel.fetchRoutines()
         }
         .navigationDestination(isPresented: $isShowAddRoutineView, destination: {
             

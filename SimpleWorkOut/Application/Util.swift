@@ -38,7 +38,7 @@ class AppLifecycleManager: ObservableObject {
     }
     
     private func activeMethod() {
-        _backgroundElapesdTime = Util.currentDateToInt() - foregroundTimeStorage
+        _backgroundElapesdTime = (Util.currentDateToInt() - foregroundTimeStorage) * 100
         foregroundTimeStorage = 0
     }
     private func inactiveMethod() {
@@ -113,7 +113,7 @@ class CustomMinusTimer: ObservableObject {
     public func start() {
         timer = Timer.scheduledTimer(withTimeInterval: 0.01, repeats: true, block: { _ in
             self.intTime -= 1
-            if self.intTime == 0 {
+            if self.intTime <= 0 {
                 self.timerStopClosure?(self.intTime)
                 self.stop()
             }
@@ -180,4 +180,31 @@ struct CustomAlert {
     var message: String
     var okButtonAction: (() -> ())?
     var cancelButtonAction: (() -> ())?
+}
+//  MARK: UserNotificationCenter
+struct CustomNotification {
+    private var id: String
+    private var title: String
+    private var message: String
+    init(id: String, title: String = "", message: String = "") {
+        self.id = id
+        self.title = title
+        self.message = message
+    }
+    mutating func changeIdentifer(id: String) {
+        self.id = id
+    }
+    func addNotification(trigerTime: TimeInterval) {
+        let trigerTime = trigerTime/100
+        let content = UNMutableNotificationContent()
+        content.title = self.title
+        content.body = message
+        content.sound = .default
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: trigerTime, repeats: false)
+        let request = UNNotificationRequest(identifier: id, content: content, trigger: trigger)
+        UNUserNotificationCenter.current().add(request)
+    }
+    func removeNotification() {
+        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [id])
+    }
 }

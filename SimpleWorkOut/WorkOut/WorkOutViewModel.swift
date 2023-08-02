@@ -31,6 +31,8 @@ class WorkOutViewModel: ObservableObject {
         case finish = "Finish"
     }
     private let model = WorkOutSaveModel()
+    let restNotification = CustomNotification(id: "rest", title: "Rest Finish", message: "Rest finish. Please complete with your workout.")
+    
     var cancellable: AnyCancellable?
     
     @Published public var isAlert: Bool = false
@@ -192,12 +194,15 @@ class WorkOutViewModel: ObservableObject {
         }
         else  if currentWorkOutStatus == .afterWorkOut {
             restWorkOutTimer.minusTime(time: AppLifecycleManager.shared.backgroundElapesdTime)
+            restNotification.removeNotification()
         }
         totalWorkOutTimer.addTime(time: AppLifecycleManager.shared.backgroundElapesdTime)
     }
     private func sceneInactiveMethod() {}
     
     private func sceneBackgroundMethod() {
-        
+        if currentWorkOutStatus == .afterWorkOut {
+            restNotification.addNotification(trigerTime: TimeInterval(restWorkOutTimer.getTime()))
+        }
     }
 }

@@ -10,6 +10,15 @@ import SwiftUI
 @main
 struct SimpleWorkOutApp: App {
     @Environment(\.scenePhase) private var scenePhase
+    init() {
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound]) { granted, error in
+            if granted {
+                print("Notification authorization granted!")
+            } else {
+                print("Notification authorization denied because: \(String(describing: error))")
+            }
+        }
+    }
     var body: some Scene {
         WindowGroup {
             ContentView()
