@@ -27,10 +27,13 @@ struct SimpleWorkOutApp: App {
         .onChange(of: scenePhase) { newScenePhase in
             switch newScenePhase {
             case .active:
+                print("App Active")
                 AppLifecycleManager.shared.appState.send(.active)
             case .inactive:
+                print("App Inactive")
                 AppLifecycleManager.shared.appState.send(.inactive)
             case .background:
+                print("App Background")
                 AppLifecycleManager.shared.appState.send(.background)
             @unknown default:
                 break

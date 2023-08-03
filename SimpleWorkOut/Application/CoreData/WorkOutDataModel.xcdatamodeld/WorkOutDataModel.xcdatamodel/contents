@@ -5,8 +5,8 @@
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
         <attribute name="name" attributeType="String"/>
         <attribute name="type" optional="YES" attributeType="String"/>
-        <relationship name="routineExercise" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="RoutineExercise" inverseName="exercise" inverseEntity="RoutineExercise"/>
-        <relationship name="workOutExercise" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="WorkOutExercise" inverseName="exercise" inverseEntity="WorkOutExercise"/>
+        <relationship name="routineExercise" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="RoutineExercise" inverseName="exercise" inverseEntity="RoutineExercise"/>
+        <relationship name="workOutExercise" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="WorkOutExercise" inverseName="exercise" inverseEntity="WorkOutExercise"/>
     </entity>
     <entity name="ExerciseSet" representedClassName="ExerciseSet" syncable="YES" codeGenerationType="class">
         <attribute name="exerciseDuration" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
@@ -35,5 +35,12 @@
         <attribute name="totalDuration" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <relationship name="exercise" maxCount="1" deletionRule="Nullify" destinationEntity="Exercise" inverseName="workOutExercise" inverseEntity="Exercise"/>
         <relationship name="sets" toMany="YES" deletionRule="Cascade" destinationEntity="ExerciseSet" inverseName="workOutExercise" inverseEntity="ExerciseSet"/>
+        <relationship name="workOutRoutine" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="WorkOutRoutine" inverseName="workOutExercise" inverseEntity="WorkOutRoutine"/>
+    </entity>
+    <entity name="WorkOutRoutine" representedClassName="WorkOutRoutine" syncable="YES" codeGenerationType="class">
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="totalDuration" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="workOutExercise" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="WorkOutExercise" inverseName="workOutRoutine" inverseEntity="WorkOutExercise"/>
     </entity>
 </model>

@@ -6,10 +6,22 @@
 //
 
 import Foundation
-
+struct WorkOutByRoutine {
+    //  [Routine]
+    //  여러개의 공통 운동을 쓰기위해서 추가된 id
+    var id = UUID()
+    let name: String
+    let type: String?
+    let exercises: [WorkOutByExercise]
+}
 class RoutineViewModel: ObservableObject {
     @Published var routines: [(name: String, type: String?, exercises: [WorkOutByExercise])] = []
+    @Published var selectRoutine: WorkOutByRoutine? = nil
     let model = RoutineModel()
+    public func setSelectRoutine(selectRoutine: (name: String, type: String?, exercises: [WorkOutByExercise])) {
+        let routine: WorkOutByRoutine = .init(id: UUID(), name: selectRoutine.name, type: selectRoutine.type, exercises: selectRoutine.exercises)
+        self.selectRoutine = routine
+    }
     public func delectRoutine(name: String) {
         model.delete(name: name)
         fetchRoutines()

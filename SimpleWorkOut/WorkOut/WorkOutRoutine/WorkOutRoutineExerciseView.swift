@@ -1,20 +1,29 @@
 //
-//  WorkOutView.swift
+//  WorkOutRoutineExerciseView.swift
 //  SimpleWorkOut
 //
-//  Created by Gaea on 2023/07/25.
+//  Created by Gaea on 2023/08/03.
 //
 
 import SwiftUI
 
-struct WorkOutView: View {
+struct WorkOutRoutineExerciseView: View {
     @Environment(\.dismiss) private var dismiss
-    @StateObject var viewModel: WorkOutViewModel
+    @StateObject var viewModel: WorkOutRoutineExerciseViewModel
     @State private var weightInput: String = ""
     @State private var repsInput: String = ""
     var body: some View {
         VStack {
-            Text(viewModel.totalWorkOutTimer.secondTime)
+            HStack {
+                Text(viewModel.totalWorkOutTimer.secondTime)
+                Button(action: {
+                    viewModel.isAutoStart.toggle()
+                }) {
+                    HStack {
+                        Image(systemName: viewModel.isAutoStart ? "checkmark.square" : "square")
+                    }
+                }
+            }
             Text("\(viewModel.currentSet)/\(viewModel.selectWorkOutExercise.set)")
             TextField("Weigth: Default 10kg", text: $weightInput)
                 .multilineTextAlignment(.center)
@@ -40,6 +49,9 @@ struct WorkOutView: View {
         .onAppear() {
             viewModel.workOutStart()
         }
+        .onDisappear(){
+            viewModel.timerStop()
+        }
         .onReceive(viewModel.totalWorkOutTimer.$intTime) { _ in
             self.viewModel.objectWillChange.send()
         }
@@ -50,7 +62,7 @@ struct WorkOutView: View {
         .onChange(of: viewModel.isFinishWorkOut, perform: { isFinish in
             if isFinish {
                 viewModel.timerStop()
-                viewModel.recordWorkOut()
+                viewModel.recordRoutineExerciseWorkOut()
             }
         })
         .navigationTitle(Text(viewModel.selectWorkOutExercise.name))
@@ -68,12 +80,6 @@ struct WorkOutView: View {
         }, message: {
             Text(viewModel.customAlert?.message ?? "Message")
         })
-        .sheet(isPresented: $viewModel.isFinishWorkOut) {
-            dismiss()
-        } content: {
-            WorkOutRecordingView(workoutID: viewModel.workOutData.id)
-        }
-
     }
     func buttonText() -> String {
         switch viewModel.currentWorkOutStatus {
@@ -89,10 +95,10 @@ struct WorkOutView: View {
     }
 }
 
-struct WorkOutView_Previews: PreviewProvider {
+struct WorkOutRoutineExerciseView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            WorkOutView(viewModel: .init(selectWorkOutExercise: .init(name: "ExampleExercise", type: "ExampleType", set: 5, rest: 90)))
+            WorkOutExerciseView(viewModel: .init(selectWorkOutExercise: .init(name: "ExampleExercise", type: "ExampleType", set: 5, rest: 90)))
         }
     }
 }

@@ -26,6 +26,7 @@ struct ExerciseView: View {
             restInput = ""
         }
     }
+    @State private var isShowWorkOutView: Bool = false
     var body: some View {
         VStack {
             List {
@@ -75,11 +76,15 @@ struct ExerciseView: View {
             Button("Cancle", role: .cancel) {}
             Button("OK") {
                 viewModel.setSelectExerciseSetAndRest(set: setInput, rest: restInput)
+                isShowWorkOutView = true
             }
         }
         .alert(isPresented: $viewModel.isError, error: viewModel.error) {}
         .navigationDestination(isPresented: $viewModel.canWorkOut) {
-            WorkOutView(viewModel: WorkOutViewModel(selectWorkOutExercise: viewModel.selectExercise))
+            if isShowWorkOutView {
+                WorkOutExerciseView(viewModel: WorkOutExerciseViewModel(selectWorkOutExercise: viewModel.selectExercise))
+                    .onDisappear(){isShowWorkOutView = false}
+            }
         }
     }
 }

@@ -8,7 +8,7 @@
 import Foundation
 import CoreData
 
-class WorkOutSaveModel {
+class WorkOutExerciseSaveModel {
     let context = Persistent.shared.container.viewContext
     func recordWorkOut(workOutData: UserWorkOut) throws {
         

@@ -11,6 +11,9 @@ import CoreData
 import Combine
 
 //  MARK: Environment
+class TimeSafer: ObservableObject {
+    
+}
 class AppLifecycleManager: ObservableObject {
     var cancellables = Set<AnyCancellable>()
     static let shared = AppLifecycleManager()
@@ -38,15 +41,26 @@ class AppLifecycleManager: ObservableObject {
     }
     
     private func activeMethod() {
-        _backgroundElapesdTime = (Util.currentDateToInt() - foregroundTimeStorage) * 100
-        foregroundTimeStorage = 0
+        if _backgroundElapesdTime == 0 {
+            _backgroundElapesdTime = (Util.currentDateToInt() - foregroundTimeStorage) * 100
+            foregroundTimeStorage = 0
+        }
     }
     private func inactiveMethod() {
-        
+        if _backgroundElapesdTime == 0 {
+            _backgroundElapesdTime = (Util.currentDateToInt() - foregroundTimeStorage) * 100
+            foregroundTimeStorage = 0
+        }
+        else if foregroundTimeStorage == 0 {
+            foregroundTimeStorage = Util.currentDateToInt()
+            _backgroundElapesdTime = 0
+        }
     }
     private func backgroundMethod() {
-        foregroundTimeStorage = Util.currentDateToInt()
-        _backgroundElapesdTime = 0
+        if foregroundTimeStorage == 0 {
+            foregroundTimeStorage = Util.currentDateToInt()
+            _backgroundElapesdTime = 0
+        }
     }
     
 }
@@ -114,8 +128,8 @@ class CustomMinusTimer: ObservableObject {
         timer = Timer.scheduledTimer(withTimeInterval: 0.01, repeats: true, block: { _ in
             self.intTime -= 1
             if self.intTime <= 0 {
-                self.timerStopClosure?(self.intTime)
                 self.stop()
+                self.timerStopClosure?(self.intTime)
             }
         })
     }
@@ -136,6 +150,8 @@ class CustomMinusTimer: ObservableObject {
         intTime -= time
         if intTime < 0 {
             intTime = 0
+            self.stop()
+            self.timerStopClosure?(self.intTime)
         }
     }
 }
@@ -195,12 +211,12 @@ struct CustomNotification {
         self.id = id
     }
     func addNotification(trigerTime: TimeInterval) {
-        let trigerTime = trigerTime/100
+        let trigerTimeStorage = trigerTime/Double(100)
         let content = UNMutableNotificationContent()
         content.title = self.title
         content.body = message
         content.sound = .default
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: trigerTime, repeats: false)
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: trigerTimeStorage, repeats: false)
         let request = UNNotificationRequest(identifier: id, content: content, trigger: trigger)
         UNUserNotificationCenter.current().add(request)
     }
@@ -208,3 +224,5 @@ struct CustomNotification {
         UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: [id])
     }
 }
+
+

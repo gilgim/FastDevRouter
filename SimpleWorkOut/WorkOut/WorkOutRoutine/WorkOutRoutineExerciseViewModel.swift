@@ -1,40 +1,26 @@
 //
-//  WorkOutViewModel.swift
+//  WorkOutRoutineExerciseViewModel.swift
 //  SimpleWorkOut
 //
-//  Created by Gaea on 2023/07/28.
+//  Created by Gaea on 2023/08/03.
 //
 
 import Foundation
 import Combine
 import SwiftUI
 
-struct UserWorkOut {
-    let id = UUID()
-    let workOutExercise: WorkOutByExercise
-    var totalDuration: Int
-    var set: [Set]
-    struct Set {
-        var setNumber: Int
-        var weight: Double
-        var reps: Int
-        var restDuration: Int
-        var exerciseDuration: Int
-    }
-}
-
-class WorkOutViewModel: ObservableObject {
+class WorkOutRoutineExerciseViewModel: ObservableObject {
     enum WorkOutStatus: String {
         case beforeWorkOut = "BeforeWorkOut"
         case workOut = "WorkOut"
         case afterWorkOut = "AfterWorkOut"
         case finish = "Finish"
     }
-    private let model = WorkOutSaveModel()
+    let model: WorkOutRoutineModel
     let restNotification = CustomNotification(id: "rest", title: "Rest Finish", message: "Rest finish. Please complete with your workout.")
     
     var cancellable: AnyCancellable?
-    
+    @Published public var isAutoStart: Bool = false
     @Published public var isAlert: Bool = false
     @Published public var customAlert: CustomAlert? = nil {
         didSet {
@@ -68,7 +54,8 @@ class WorkOutViewModel: ObservableObject {
     
     var workOutData: UserWorkOut
     
-    init(selectWorkOutExercise: WorkOutByExercise?) {
+    init(model: WorkOutRoutineModel, selectWorkOutExercise: WorkOutByExercise?) {
+        self.model = model
         var _selectWorkOutExercise: WorkOutByExercise = .init(name: "error", type: "error", set: 0, rest: 0)
         if let selectWorkOutExercise {
            _selectWorkOutExercise = selectWorkOutExercise
@@ -103,13 +90,8 @@ class WorkOutViewModel: ObservableObject {
             self.repsStorage = 12
         }
     }
-    public func recordWorkOut() {
-        do {
-            try model.recordWorkOut(workOutData: self.workOutData)
-        }
-        catch {
-            self.error = WorkOutError.RecordError
-        }
+    public func recordRoutineExerciseWorkOut() {
+        
     }
     
     public func recordWeigthAndReps(weight: Double?, reps: Int?) {
@@ -135,13 +117,12 @@ class WorkOutViewModel: ObservableObject {
             currentWorkOutStatus = .workOut
             
         case .workOut:
-            currentWorkOutStatus = .afterWorkOut
             singleWorkOutTimer.stop()
             restWorkOutTimer.start()
+            currentWorkOutStatus = .afterWorkOut
             
         case .afterWorkOut:
             restFinish(restTime: restWorkOutTimer.getTime())
-            
         case .finish:
             break
         }
@@ -154,14 +135,32 @@ class WorkOutViewModel: ObservableObject {
                 let massege = "Are you ending your rest period"
                 customAlert = .init(title: title, message: massege, okButtonAction: {
                     self.recordWeigthAndReps(weight: self.weightStorage, reps: self.repsStorage)
-                    self.currentWorkOutStatus = .beforeWorkOut
+                    if self.isAutoStart {
+                        self.restWorkOutTimer.stop()
+                        self.restWorkOutTimer.reset()
+                        self.singleWorkOutTimer.reset()
+                        self.singleWorkOutTimer.start()
+                        self.currentWorkOutStatus = .workOut
+                    }
+                    else {
+                        self.currentWorkOutStatus = .beforeWorkOut
+                    }
                     self.currentSet += 1
                 }, cancelButtonAction: {})
             }
             else {
                 self.isAlert = false
                 self.recordWeigthAndReps(weight: self.weightStorage, reps: self.repsStorage)
-                self.currentWorkOutStatus = .beforeWorkOut
+                if self.isAutoStart {
+                    self.restWorkOutTimer.stop()
+                    self.restWorkOutTimer.reset()
+                    self.singleWorkOutTimer.reset()
+                    self.singleWorkOutTimer.start()
+                    self.currentWorkOutStatus = .workOut
+                }
+                else {
+                    self.currentWorkOutStatus = .beforeWorkOut
+                }
                 self.currentSet += 1
             }
         }
@@ -173,6 +172,7 @@ class WorkOutViewModel: ObservableObject {
                     self.recordWeigthAndReps(weight: self.weightStorage, reps: self.repsStorage)
                     self.workOutData.totalDuration = self.totalWorkOutTimer.getTime()
                     self.isFinishWorkOut = true
+                    self.cancellable?.cancel()
                 }, cancelButtonAction: {})
             }
             else {
@@ -180,6 +180,7 @@ class WorkOutViewModel: ObservableObject {
                 self.recordWeigthAndReps(weight: self.weightStorage, reps: self.repsStorage)
                 self.workOutData.totalDuration = self.totalWorkOutTimer.getTime()
                 self.isFinishWorkOut = true
+                self.cancellable?.cancel()
             }
         }
     }
@@ -194,15 +195,16 @@ class WorkOutViewModel: ObservableObject {
         }
         else  if currentWorkOutStatus == .afterWorkOut {
             restWorkOutTimer.minusTime(time: AppLifecycleManager.shared.backgroundElapesdTime)
-            restNotification.removeNotification()
         }
         totalWorkOutTimer.addTime(time: AppLifecycleManager.shared.backgroundElapesdTime)
+        restNotification.removeNotification()
     }
     private func sceneInactiveMethod() {}
     
     private func sceneBackgroundMethod() {
         if currentWorkOutStatus == .afterWorkOut {
-            restNotification.addNotification(trigerTime: TimeInterval(restWorkOutTimer.getTime()))
+            print("test\(restWorkOutTimer.getTime())")
+            restNotification.addNotification(trigerTime: Double(restWorkOutTimer.getTime()))
         }
     }
 }
