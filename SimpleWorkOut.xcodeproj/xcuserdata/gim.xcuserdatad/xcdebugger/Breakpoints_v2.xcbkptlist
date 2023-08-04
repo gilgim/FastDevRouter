@@ -164,5 +164,383 @@
             </Locations>
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "62496D0F-E69F-4453-AD95-8D7794C87036"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SimpleWorkOut/WorkOut/WorkOutRoutine/WorkOutRoutineExerciseView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "64"
+            endingLineNumber = "64"
+            landmarkName = "body"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "0E0C303B-FEBB-41EE-9EE6-4E5254A2FAF5"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SimpleWorkOut/WorkOut/WorkOutRoutine/WorkOutRoutineModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "42"
+            endingLineNumber = "42"
+            landmarkName = "addCompleteExercise(completeExercise:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "B9BD00F5-74CF-40B2-9417-09D1A8F7DC00"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SimpleWorkOut/WorkOut/WorkOutRoutine/WorkOutRoutineViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "35"
+            endingLineNumber = "35"
+            landmarkName = "fetchExercises()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "B9BD00F5-74CF-40B2-9417-09D1A8F7DC00 - 2cdbd744ece1ae70"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #2 (SimpleWorkOut.WorkOutExercise) -&gt; (id: Foundation.UUID, name: Swift.String, type: Swift.Optional&lt;Swift.String&gt;, setReps: Swift.Int) in SimpleWorkOut.WorkOutRoutineViewModel.fetchExercises() -&gt; ()"
+                  moduleName = "SimpleWorkOut"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/gim/SimpleWorkOut/SimpleWorkOut/WorkOut/WorkOutRoutine/WorkOutRoutineViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "35"
+                  endingLineNumber = "35"
+                  offsetFromSymbolStart = "48">
+               </Location>
+               <Location
+                  uuid = "B9BD00F5-74CF-40B2-9417-09D1A8F7DC00 - 43ac3fbbbae68786"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SimpleWorkOut.WorkOutRoutineViewModel.fetchExercises() -&gt; ()"
+                  moduleName = "SimpleWorkOut"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/gim/SimpleWorkOut/SimpleWorkOut/WorkOut/WorkOutRoutine/WorkOutRoutineViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "36"
+                  endingLineNumber = "36"
+                  offsetFromSymbolStart = "44">
+               </Location>
+               <Location
+                  uuid = "B9BD00F5-74CF-40B2-9417-09D1A8F7DC00 - 27da4cb017219f68"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (SimpleWorkOut.RoutineExercise) -&gt; SimpleWorkOut.WorkOutByExercise in SimpleWorkOut.WorkOutRoutineViewModel.fetchExercises() -&gt; ()"
+                  moduleName = "SimpleWorkOut"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/gim/SimpleWorkOut/SimpleWorkOut/WorkOut/WorkOutRoutine/WorkOutRoutineViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "37"
+                  endingLineNumber = "37"
+                  offsetFromSymbolStart = "132">
+               </Location>
+               <Location
+                  uuid = "B9BD00F5-74CF-40B2-9417-09D1A8F7DC00 - 27da4cb017219f68"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (SimpleWorkOut.RoutineExercise) -&gt; SimpleWorkOut.WorkOutByExercise in SimpleWorkOut.WorkOutRoutineViewModel.fetchExercises() -&gt; ()"
+                  moduleName = "SimpleWorkOut"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/gim/SimpleWorkOut/SimpleWorkOut/WorkOut/WorkOutRoutine/WorkOutRoutineViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "37"
+                  endingLineNumber = "37"
+                  offsetFromSymbolStart = "500">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "3DBFA9CE-5670-4DD9-8CD9-8F2883287D66"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SimpleWorkOut/WorkOut/WorkOutRoutine/WorkOutRoutineModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "34"
+            endingLineNumber = "34"
+            landmarkName = "getNotCompleteExercises()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "3DBFA9CE-5670-4DD9-8CD9-8F2883287D66 - 8c855dd3d54c1a4f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SimpleWorkOut.WorkOutRoutineModel.getNotCompleteExercises() throws -&gt; Swift.Array&lt;SimpleWorkOut.RoutineExercise&gt;"
+                  moduleName = "SimpleWorkOut"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/gim/SimpleWorkOut/SimpleWorkOut/WorkOut/WorkOutRoutine/WorkOutRoutineModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "34"
+                  endingLineNumber = "34"
+                  offsetFromSymbolStart = "1600">
+               </Location>
+               <Location
+                  uuid = "3DBFA9CE-5670-4DD9-8CD9-8F2883287D66 - 8c855dd3d54c1a4f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SimpleWorkOut.WorkOutRoutineModel.getNotCompleteExercises() throws -&gt; Swift.Array&lt;SimpleWorkOut.RoutineExercise&gt;"
+                  moduleName = "SimpleWorkOut"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/gim/SimpleWorkOut/SimpleWorkOut/WorkOut/WorkOutRoutine/WorkOutRoutineModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "34"
+                  endingLineNumber = "34"
+                  offsetFromSymbolStart = "1888">
+               </Location>
+               <Location
+                  uuid = "3DBFA9CE-5670-4DD9-8CD9-8F2883287D66 - 8c855dd3d54c1a4f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SimpleWorkOut.WorkOutRoutineModel.getNotCompleteExercises() throws -&gt; Swift.Array&lt;SimpleWorkOut.RoutineExercise&gt;"
+                  moduleName = "SimpleWorkOut"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/gim/SimpleWorkOut/SimpleWorkOut/WorkOut/WorkOutRoutine/WorkOutRoutineModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "34"
+                  endingLineNumber = "34"
+                  offsetFromSymbolStart = "1660">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F3AADB22-87D3-4B3F-9DD6-0BBF63DE26B0"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SimpleWorkOut/WorkOut/WorkOutRoutine/WorkOutRoutineModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "38"
+            endingLineNumber = "38"
+            landmarkName = "getCompleteExercise()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "F3AADB22-87D3-4B3F-9DD6-0BBF63DE26B0 - 8c855dd3d54c1ae4"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SimpleWorkOut.WorkOutRoutineModel.getNotCompleteExercises() throws -&gt; Swift.Array&lt;SimpleWorkOut.RoutineExercise&gt;"
+                  moduleName = "SimpleWorkOut"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/gim/SimpleWorkOut/SimpleWorkOut/WorkOut/WorkOutRoutine/WorkOutRoutineModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "39"
+                  endingLineNumber = "39"
+                  offsetFromSymbolStart = "3000">
+               </Location>
+               <Location
+                  uuid = "F3AADB22-87D3-4B3F-9DD6-0BBF63DE26B0 - 32dd6a912d8e7f15"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SimpleWorkOut.WorkOutRoutineModel.getCompleteExercise() -&gt; Swift.Array&lt;SimpleWorkOut.WorkOutExercise&gt;"
+                  moduleName = "SimpleWorkOut"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/gim/SimpleWorkOut/SimpleWorkOut/WorkOut/WorkOutRoutine/WorkOutRoutineModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "38"
+                  endingLineNumber = "38"
+                  offsetFromSymbolStart = "40">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "1669BB22-7324-40D9-8755-94977EC86478"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SimpleWorkOut/WorkOut/WorkOutRoutine/WorkOutRoutineModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "29"
+            endingLineNumber = "29"
+            landmarkName = "getNotCompleteExercises()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "1669BB22-7324-40D9-8755-94977EC86478 - 8c855dd3d54c1912"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SimpleWorkOut.WorkOutRoutineModel.getNotCompleteExercises() throws -&gt; Swift.Array&lt;SimpleWorkOut.RoutineExercise&gt;"
+                  moduleName = "SimpleWorkOut"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/gim/SimpleWorkOut/SimpleWorkOut/WorkOut/WorkOutRoutine/WorkOutRoutineModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "29"
+                  endingLineNumber = "29"
+                  offsetFromSymbolStart = "1600">
+               </Location>
+               <Location
+                  uuid = "1669BB22-7324-40D9-8755-94977EC86478 - 8c855dd3d54c1912"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SimpleWorkOut.WorkOutRoutineModel.getNotCompleteExercises() throws -&gt; Swift.Array&lt;SimpleWorkOut.RoutineExercise&gt;"
+                  moduleName = "SimpleWorkOut"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/gim/SimpleWorkOut/SimpleWorkOut/WorkOut/WorkOutRoutine/WorkOutRoutineModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "29"
+                  endingLineNumber = "29"
+                  offsetFromSymbolStart = "1888">
+               </Location>
+               <Location
+                  uuid = "1669BB22-7324-40D9-8755-94977EC86478 - 8c855dd3d54c1912"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SimpleWorkOut.WorkOutRoutineModel.getNotCompleteExercises() throws -&gt; Swift.Array&lt;SimpleWorkOut.RoutineExercise&gt;"
+                  moduleName = "SimpleWorkOut"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/gim/SimpleWorkOut/SimpleWorkOut/WorkOut/WorkOutRoutine/WorkOutRoutineModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "29"
+                  endingLineNumber = "29"
+                  offsetFromSymbolStart = "96">
+               </Location>
+               <Location
+                  uuid = "1669BB22-7324-40D9-8755-94977EC86478 - 8c855dd3d54c1912"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SimpleWorkOut.WorkOutRoutineModel.getNotCompleteExercises() throws -&gt; Swift.Array&lt;SimpleWorkOut.RoutineExercise&gt;"
+                  moduleName = "SimpleWorkOut"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/gim/SimpleWorkOut/SimpleWorkOut/WorkOut/WorkOutRoutine/WorkOutRoutineModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "29"
+                  endingLineNumber = "29"
+                  offsetFromSymbolStart = "64">
+               </Location>
+               <Location
+                  uuid = "1669BB22-7324-40D9-8755-94977EC86478 - 8c855dd3d54c1912"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SimpleWorkOut.WorkOutRoutineModel.getNotCompleteExercises() throws -&gt; Swift.Array&lt;SimpleWorkOut.RoutineExercise&gt;"
+                  moduleName = "SimpleWorkOut"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/gim/SimpleWorkOut/SimpleWorkOut/WorkOut/WorkOutRoutine/WorkOutRoutineModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "29"
+                  endingLineNumber = "29"
+                  offsetFromSymbolStart = "564">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "B2559117-26A9-491C-B65D-0C2EE8AA87AD"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SimpleWorkOut/WorkOut/WorkOutRoutine/WorkOutRoutineModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "32"
+            endingLineNumber = "32"
+            landmarkName = "getNotCompleteExercises()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "B2559117-26A9-491C-B65D-0C2EE8AA87AD - ee66e31478df70d5"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (SimpleWorkOut.RoutineExercise) -&gt; Swift.Bool in SimpleWorkOut.WorkOutRoutineModel.getNotCompleteExercises() throws -&gt; Swift.Array&lt;SimpleWorkOut.RoutineExercise&gt;"
+                  moduleName = "SimpleWorkOut"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/gim/SimpleWorkOut/SimpleWorkOut/WorkOut/WorkOutRoutine/WorkOutRoutineModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "32"
+                  endingLineNumber = "32"
+                  offsetFromSymbolStart = "52">
+               </Location>
+               <Location
+                  uuid = "B2559117-26A9-491C-B65D-0C2EE8AA87AD - a6db46b37b73e574"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (SimpleWorkOut.WorkOutExercise) -&gt; Swift.Bool in closure #1 (SimpleWorkOut.RoutineExercise) -&gt; Swift.Bool in SimpleWorkOut.WorkOutRoutineModel.getNotCompleteExercises() throws -&gt; Swift.Array&lt;SimpleWorkOut.RoutineExercise&gt;"
+                  moduleName = "SimpleWorkOut"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/gim/SimpleWorkOut/SimpleWorkOut/WorkOut/WorkOutRoutine/WorkOutRoutineModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "32"
+                  endingLineNumber = "32"
+                  offsetFromSymbolStart = "420">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A14A2931-FBF0-4570-8C47-AA10C89A0571"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SimpleWorkOut/WorkOut/WorkOutRoutine/WorkOutRoutineModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "35"
+            endingLineNumber = "35"
+            landmarkName = "getNotCompleteExercises()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

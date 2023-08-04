@@ -63,6 +63,7 @@ struct WorkOutRoutineExerciseView: View {
             if isFinish {
                 viewModel.timerStop()
                 viewModel.recordRoutineExerciseWorkOut()
+                self.dismiss()
             }
         })
         .navigationTitle(Text(viewModel.selectWorkOutExercise.name))

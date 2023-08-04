@@ -9,18 +9,15 @@ import SwiftUI
 
 struct RoutineView: View {
     @ObservedObject private var viewModel = RoutineViewModel()
-    @State private var selectRoutine: (name: String, type: String?, exercises: [WorkOutByExercise])? = nil
-    @State private var isWorkOut: Bool = false
     var body: some View {
         VStack {
             List {
-                ForEach(viewModel.routines, id: \.name) { routine in
+                ForEach(viewModel.routines, id: \.id) { routine in
                     HStack {
                         RoutineContentView(routine: .constant(routine))
                         Spacer()
                         Button{
-                            isWorkOut.toggle()
-                            selectRoutine = routine
+                            viewModel.setSelectRoutine(selectRoutine: routine)
                         }label: {
                             Image(systemName: "chevron.right")
                                 .foregroundColor(.gray)
@@ -32,7 +29,6 @@ struct RoutineView: View {
                             viewModel.delectRoutine(name: routine.name)
                         }label: {
                             Image(systemName: "trash")
-                                
                         }
                         .tint(.red)
                     }
@@ -42,8 +38,10 @@ struct RoutineView: View {
         .onAppear() {
             viewModel.fetchRoutines()
         }
-        .navigationDestination(isPresented: $isWorkOut, destination: {
-            
+        .navigationDestination(isPresented: $viewModel.isWorkOut, destination: {
+            if let selectRoutine = viewModel.selectRoutine {
+                WorkOutRoutineView(viewModel: .init(selectRoutine: selectRoutine))
+            }
         })
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
@@ -67,7 +65,7 @@ struct RoutineView_Previews: PreviewProvider {
 
 struct RoutineContentView: View {
     @State var isShowExercises: Bool = false
-    @Binding var routine: (name: String, type: String?, exercises: [WorkOutByExercise])
+    @Binding var routine: (id: UUID, name: String, type: String?, exercises: [WorkOutByExercise])
     var body: some View {
         VStack {
             HStack {

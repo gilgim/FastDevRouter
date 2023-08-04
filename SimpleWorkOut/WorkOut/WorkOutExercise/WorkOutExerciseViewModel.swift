@@ -9,8 +9,8 @@ import Foundation
 import Combine
 import SwiftUI
 
-struct UserWorkOut {
-    let id = UUID()
+struct UserWorkOutExercise {
+    let id: UUID
     let workOutExercise: WorkOutByExercise
     var totalDuration: Int
     var set: [Set]
@@ -44,7 +44,7 @@ class WorkOutExerciseViewModel: ObservableObject {
         }
     }
     
-    @Published public var error: WorkOutError? = nil {
+    @Published public var error: WorkOutExerciseError? = nil {
         didSet {
             if error != nil {
                 isError = true
@@ -66,7 +66,7 @@ class WorkOutExerciseViewModel: ObservableObject {
     private var weightStorage: Double = 10
     private var repsStorage: Int = 12
     
-    var workOutData: UserWorkOut
+    var workOutData: UserWorkOutExercise
     
     init(selectWorkOutExercise: WorkOutByExercise?) {
         var _selectWorkOutExercise: WorkOutByExercise = .init(name: "error", type: "error", set: 0, rest: 0)
@@ -74,7 +74,7 @@ class WorkOutExerciseViewModel: ObservableObject {
            _selectWorkOutExercise = selectWorkOutExercise
         }
         self.selectWorkOutExercise = _selectWorkOutExercise
-        self.workOutData = .init(workOutExercise:_selectWorkOutExercise, totalDuration: 0, set: [])
+        self.workOutData = .init(id: .init(), workOutExercise:_selectWorkOutExercise, totalDuration: 0, set: [])
         self.restWorkOutTimer = .init(setTime: _selectWorkOutExercise.rest)
         self.restWorkOutTimer.timerStopClosure = { restTime in
             self.restFinish(restTime: restTime)
@@ -108,7 +108,7 @@ class WorkOutExerciseViewModel: ObservableObject {
             try model.recordWorkOut(workOutData: self.workOutData)
         }
         catch {
-            self.error = WorkOutError.RecordError
+            self.error = WorkOutExerciseError.RecordError
         }
     }
     
@@ -117,7 +117,6 @@ class WorkOutExerciseViewModel: ObservableObject {
         let restDuration = restWorkOutTimer.getDefaultTime() - restWorkOutTimer.getTime()
         let exerciseDuration = singleWorkOutTimer.getTime()
         self.workOutData.set.append(.init(setNumber: currentSet, weight: weight, reps: reps, restDuration: restDuration, exerciseDuration: exerciseDuration))
-
     }
     
     public func workOutStart() {

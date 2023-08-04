@@ -30,7 +30,7 @@ class WorkOutRoutineExerciseViewModel: ObservableObject {
         }
     }
     
-    @Published public var error: WorkOutError? = nil {
+    @Published public var error: WorkOutExerciseError? = nil {
         didSet {
             if error != nil {
                 isError = true
@@ -52,7 +52,7 @@ class WorkOutRoutineExerciseViewModel: ObservableObject {
     private var weightStorage: Double = 10
     private var repsStorage: Int = 12
     
-    var workOutData: UserWorkOut
+    var workOutData: UserWorkOutExercise
     
     init(model: WorkOutRoutineModel, selectWorkOutExercise: WorkOutByExercise?) {
         self.model = model
@@ -61,7 +61,7 @@ class WorkOutRoutineExerciseViewModel: ObservableObject {
            _selectWorkOutExercise = selectWorkOutExercise
         }
         self.selectWorkOutExercise = _selectWorkOutExercise
-        self.workOutData = .init(workOutExercise:_selectWorkOutExercise, totalDuration: 0, set: [])
+        self.workOutData = .init(id: _selectWorkOutExercise.id, workOutExercise:_selectWorkOutExercise, totalDuration: 0, set: [])
         self.restWorkOutTimer = .init(setTime: _selectWorkOutExercise.rest)
         self.restWorkOutTimer.timerStopClosure = { restTime in
             self.restFinish(restTime: restTime)
@@ -91,7 +91,13 @@ class WorkOutRoutineExerciseViewModel: ObservableObject {
         }
     }
     public func recordRoutineExerciseWorkOut() {
-        
+        do {
+            print("\(self.workOutData.workOutExercise.name)\(self.workOutData.workOutExercise.id) 저장할 때 \(self.workOutData.id)")
+            try model.addCompleteExercise(completeExercise: self.workOutData)
+        }
+        catch {
+            self.error = error as? WorkOutExerciseError
+        }
     }
     
     public func recordWeigthAndReps(weight: Double?, reps: Int?) {

@@ -10,7 +10,7 @@ import CoreData
 
 class WorkOutExerciseSaveModel {
     let context = Persistent.shared.container.viewContext
-    func recordWorkOut(workOutData: UserWorkOut) throws {
+    func recordWorkOut(workOutData: UserWorkOutExercise) throws {
         
         let fetchRequset = NSFetchRequest<NSFetchRequestResult>(entityName: "Exercise")
         fetchRequset.predicate = .init(format: "name == %@", workOutData.workOutExercise.name)

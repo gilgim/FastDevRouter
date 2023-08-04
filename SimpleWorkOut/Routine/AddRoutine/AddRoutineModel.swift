@@ -32,6 +32,7 @@ class AddRoutineModel {
             guard let exercises = try? context.fetch(fetchRequest) as? [Exercise], exercises.count > 0 else {throw RoutineError.ReadExerciseError}
             
             let routineExercise = RoutineExercise(context: context)
+            routineExercise.id = .init()
             routineExercise.exercise = exercises[0]
             routineExercise.restDuration = Util.intToInt32(int: exercise.rest)
             routineExercise.setReps = Util.intToInt16(int: exercise.set)

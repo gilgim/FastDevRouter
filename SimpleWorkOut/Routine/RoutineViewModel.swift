@@ -15,12 +15,19 @@ struct WorkOutByRoutine {
     let exercises: [WorkOutByExercise]
 }
 class RoutineViewModel: ObservableObject {
-    @Published var routines: [(name: String, type: String?, exercises: [WorkOutByExercise])] = []
-    @Published var selectRoutine: WorkOutByRoutine? = nil
+    @Published var routines: [(id: UUID, name: String, type: String?, exercises: [WorkOutByExercise])] = []
+    @Published var isWorkOut: Bool = false
+    
+    var selectRoutine: WorkOutByRoutine? = nil
     let model = RoutineModel()
-    public func setSelectRoutine(selectRoutine: (name: String, type: String?, exercises: [WorkOutByExercise])) {
-        let routine: WorkOutByRoutine = .init(id: UUID(), name: selectRoutine.name, type: selectRoutine.type, exercises: selectRoutine.exercises)
+    
+    public func setSelectRoutine(selectRoutine: (id: UUID ,name: String, type: String?, exercises: [WorkOutByExercise])) {
+        let routine: WorkOutByRoutine = .init(id: selectRoutine.id , name: selectRoutine.name, type: selectRoutine.type, exercises: selectRoutine.exercises)
+        for test in routine.exercises {
+            print("\(test.name)\(test.set)처음 클릭 때 Id \(test.id)")
+        }
         self.selectRoutine = routine
+        self.isWorkOut.toggle()
     }
     public func delectRoutine(name: String) {
         model.delete(name: name)
@@ -29,15 +36,16 @@ class RoutineViewModel: ObservableObject {
     public func fetchRoutines() {
         guard let list = model.read() as? [Routine] else {return}
         routines = list.map({
-            guard let exercises = $0.routineExercise?.allObjects as? [RoutineExercise] else {return ("",nil,[])}
+            guard let exercises = $0.routineExercise?.allObjects as? [RoutineExercise] else {return (UUID(),"",nil,[])}
             
             var exerciseStorage: [WorkOutByExercise] = []
             for exercise in exercises {
-                let workOutByExercise = WorkOutByExercise(id: .init(), name: exercise.exercise?.name ?? "", type: exercise.exercise?.type ?? "", set: Int(exercise.setReps), rest: Int(exercise.restDuration))
+                let workOutByExercise = WorkOutByExercise(id: exercise.id ?? UUID(), name: exercise.exercise?.name ?? "", type: exercise.exercise?.type ?? "", set: Int(exercise.setReps), rest: Int(exercise.restDuration))
+                print("\(exercise.exercise?.name)\(exercise.setReps)패치했을때 때 Id \(exercise.id)")
                 exerciseStorage.append(workOutByExercise)
             }
             
-            return ($0.name ?? "", $0.type, exerciseStorage)
+            return ($0.id ?? UUID(), $0.name ?? "", $0.type, exerciseStorage)
         })
     }
 }
