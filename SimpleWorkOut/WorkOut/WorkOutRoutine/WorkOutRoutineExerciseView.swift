@@ -10,8 +10,6 @@ import SwiftUI
 struct WorkOutRoutineExerciseView: View {
     @Environment(\.dismiss) private var dismiss
     @StateObject var viewModel: WorkOutRoutineExerciseViewModel
-    @State private var weightInput: String = ""
-    @State private var repsInput: String = ""
     var body: some View {
         VStack {
             HStack {
@@ -25,18 +23,17 @@ struct WorkOutRoutineExerciseView: View {
                 }
             }
             Text("\(viewModel.currentSet)/\(viewModel.selectWorkOutExercise.set)")
-            TextField("Weigth: Default 10kg", text: $weightInput)
+            TextField("Weigth: Default 10kg", text: $viewModel.weightInput)
                 .multilineTextAlignment(.center)
                 .font(.system(size: 18))
-            TextField("Reps: Default 12reps", text: $repsInput)
+                .keyboardType(.decimalPad)
+            TextField("Reps: Default 12reps", text: $viewModel.repsInput)
                 .multilineTextAlignment(.center)
                 .font(.system(size: 18))
+                .keyboardType(.decimalPad)
             Spacer()
             Button{
                 viewModel.workOutButtonClickAction()
-                if viewModel.currentWorkOutStatus == .workOut {
-                    viewModel.setWeightAndReps(weight: weightInput, reps: repsInput)
-                }
             }label: {
                 ZStack {
                     RoundedRectangle(cornerRadius: 13)
@@ -54,10 +51,6 @@ struct WorkOutRoutineExerciseView: View {
         }
         .onReceive(viewModel.totalWorkOutTimer.$intTime) { _ in
             self.viewModel.objectWillChange.send()
-        }
-        .onChange(of: viewModel.currentWorkOutStatus) { _ in
-            weightInput = ""
-            repsInput = ""
         }
         .onChange(of: viewModel.isFinishWorkOut, perform: { isFinish in
             if isFinish {

@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct WorkOutRoutineView: View {
+    @Environment(\.dismiss) private var dismiss
     @StateObject var viewModel: WorkOutRoutineViewModel
     var body: some View {
         ScrollView(.horizontal) {
@@ -46,6 +47,13 @@ struct WorkOutRoutineView: View {
             viewModel.startRoutine()
             viewModel.fetchExercises()
         }
+        .onReceive(viewModel.$exerciseList, perform: { value in
+            if value.isEmpty {
+                viewModel.finishRoutine()
+                self.dismiss()
+            }
+        })
+        .alert(isPresented: $viewModel.isError, error: viewModel.error) {}
     }
 }
 

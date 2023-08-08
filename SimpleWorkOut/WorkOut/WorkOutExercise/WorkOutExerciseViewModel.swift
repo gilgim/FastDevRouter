@@ -62,9 +62,18 @@ class WorkOutExerciseViewModel: ObservableObject {
     @Published var selectWorkOutExercise: WorkOutByExercise
     @Published var currentSet: Int = 1
     @Published var currentWorkOutStatus: WorkOutStatus = .beforeWorkOut
-    
-    private var weightStorage: Double = 10
-    private var repsStorage: Int = 12
+    @Published var weightInput: String = ""
+    @Published var repsInput: String = ""
+    private var weightStorage: Double {
+        get {
+            return Double(weightInput) ?? 10
+        }
+    }
+    private var repsStorage: Int {
+        get {
+            return Int(repsInput) ?? 12
+        }
+    }
     
     var workOutData: UserWorkOutExercise
     
@@ -93,16 +102,7 @@ class WorkOutExerciseViewModel: ObservableObject {
             }
         })
     }
-    public func setWeightAndReps(weight: String, reps: String) {
-        if let weight = Double(weight), let reps = Int(reps) {
-            self.weightStorage = weight
-            self.repsStorage = reps
-        }
-        else {
-            self.weightStorage = 10
-            self.repsStorage = 12
-        }
-    }
+    
     public func recordWorkOut() {
         do {
             try model.recordWorkOut(workOutData: self.workOutData)
@@ -112,11 +112,13 @@ class WorkOutExerciseViewModel: ObservableObject {
         }
     }
     
-    public func recordWeigthAndReps(weight: Double?, reps: Int?) {
+    private func recordWeigthAndReps(weight: Double?, reps: Int?) {
         guard let weight, let reps else { error = .RecordError; return }
         let restDuration = restWorkOutTimer.getDefaultTime() - restWorkOutTimer.getTime()
         let exerciseDuration = singleWorkOutTimer.getTime()
         self.workOutData.set.append(.init(setNumber: currentSet, weight: weight, reps: reps, restDuration: restDuration, exerciseDuration: exerciseDuration))
+        self.weightInput = ""
+        self.repsInput = ""
     }
     
     public func workOutStart() {
@@ -151,7 +153,6 @@ class WorkOutExerciseViewModel: ObservableObject {
                 let title = "Rest End"
                 let massege = "Are you ending your rest period"
                 customAlert = .init(title: title, message: massege, okButtonAction: {
-                    self.recordWeigthAndReps(weight: self.weightStorage, reps: self.repsStorage)
                     if self.isAutoStart {
                         self.restWorkOutTimer.stop()
                         self.restWorkOutTimer.reset()
@@ -162,12 +163,12 @@ class WorkOutExerciseViewModel: ObservableObject {
                     else {
                         self.currentWorkOutStatus = .beforeWorkOut
                     }
+                    self.recordWeigthAndReps(weight: self.weightStorage, reps: self.repsStorage)
                     self.currentSet += 1
                 }, cancelButtonAction: {})
             }
             else {
                 self.isAlert = false
-                self.recordWeigthAndReps(weight: self.weightStorage, reps: self.repsStorage)
                 if self.isAutoStart {
                     self.restWorkOutTimer.stop()
                     self.restWorkOutTimer.reset()
@@ -178,6 +179,7 @@ class WorkOutExerciseViewModel: ObservableObject {
                 else {
                     self.currentWorkOutStatus = .beforeWorkOut
                 }
+                self.recordWeigthAndReps(weight: self.weightStorage, reps: self.repsStorage)
                 self.currentSet += 1
             }
         }

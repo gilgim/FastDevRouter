@@ -23,9 +23,6 @@ class RoutineViewModel: ObservableObject {
     
     public func setSelectRoutine(selectRoutine: (id: UUID ,name: String, type: String?, exercises: [WorkOutByExercise])) {
         let routine: WorkOutByRoutine = .init(id: selectRoutine.id , name: selectRoutine.name, type: selectRoutine.type, exercises: selectRoutine.exercises)
-        for test in routine.exercises {
-            print("\(test.name)\(test.set)처음 클릭 때 Id \(test.id)")
-        }
         self.selectRoutine = routine
         self.isWorkOut.toggle()
     }
@@ -41,7 +38,6 @@ class RoutineViewModel: ObservableObject {
             var exerciseStorage: [WorkOutByExercise] = []
             for exercise in exercises {
                 let workOutByExercise = WorkOutByExercise(id: exercise.id ?? UUID(), name: exercise.exercise?.name ?? "", type: exercise.exercise?.type ?? "", set: Int(exercise.setReps), rest: Int(exercise.restDuration))
-                print("\(exercise.exercise?.name)\(exercise.setReps)패치했을때 때 Id \(exercise.id)")
                 exerciseStorage.append(workOutByExercise)
             }
             

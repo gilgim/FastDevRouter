@@ -72,7 +72,9 @@ struct ExerciseView: View {
         }
         .alert("Setup Set and Rest", isPresented: $isWorkOut) {
             TextField("Please input exercise set", text: $setInput)
+                .keyboardType(.decimalPad)
             TextField("Please input exercise rest time.", text: $restInput)
+                .keyboardType(.decimalPad)
             Button("Cancle", role: .cancel) {}
             Button("OK") {
                 viewModel.setSelectExerciseSetAndRest(set: setInput, rest: restInput)

@@ -11,7 +11,7 @@ import CoreData
 class WorkOutRoutineModel {
     let context = Persistent.shared.container.viewContext
     private var workOutRoutine: WorkOutRoutine? = nil
-    
+    private var completeExercises: [UserWorkOutExercise] = []
     public func createWorkOutRoutine(selectRoutine: UserWorkOutRoutine) throws {
         if workOutRoutine == nil {
             let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Routine")
@@ -27,42 +27,45 @@ class WorkOutRoutineModel {
     
     public func getNotCompleteExercises() throws -> [RoutineExercise] {
         let allExerciseList = self.workOutRoutine?.routine?.routineExercise?.allObjects as? [RoutineExercise] ?? []
-        let completeExerciseList = self.workOutRoutine?.workOutExercise?.allObjects as? [WorkOutExercise] ?? []
         let notCompleteExerciseList = allExerciseList.filter({ value in
-            return !completeExerciseList.contains(where: {$0.id == value.id})
+            return !completeExercises.contains(where: {$0.id == value.id})
         })
         return notCompleteExerciseList
     }
     
-    public func getCompleteExercise() -> [WorkOutExercise] {
-        return self.workOutRoutine?.workOutExercise?.allObjects as? [WorkOutExercise] ?? []
+    public func getCompleteExercise() -> [UserWorkOutExercise] {
+        return completeExercises
     }
-    
-    public func addCompleteExercise(completeExercise: UserWorkOutExercise) throws {
-        let fetchRequset = NSFetchRequest<NSFetchRequestResult>(entityName: "Exercise")
-        fetchRequset.predicate = .init(format: "name == %@", completeExercise.workOutExercise.name)
-        
-        guard let result = try? context.fetch(fetchRequset),
-              let exercises = result as? [Exercise], exercises.count > 0 else { throw WorkOutRoutineError.ReadError }
-        
-        let exercise = exercises[0]
-        let workOutExercise = WorkOutExercise(context: context)
-        workOutExercise.id = completeExercise.id
-        print("저장되는 id\(workOutExercise.id)")
-        workOutExercise.date = .now
-        workOutExercise.exercise = exercise
-        
-        for setData in completeExercise.set {
-            let set = ExerciseSet(context: context)
-            set.setNumber = Util.intToInt16(int: setData.setNumber)
-            set.weight = setData.weight
-            set.reps = Util.intToInt16(int: setData.reps)
-            set.exerciseDuration = Util.intToInt32(int: setData.exerciseDuration)
-            set.restDuration = Util.intToInt32(int: setData.restDuration)
+    public func recordRoutine() throws {
+        for completeExercise in completeExercises {
+            let fetchRequset = NSFetchRequest<NSFetchRequestResult>(entityName: "Exercise")
+            fetchRequset.predicate = .init(format: "name == %@", completeExercise.workOutExercise.name)
             
-            workOutExercise.addToSets(set)
+            guard let result = try? context.fetch(fetchRequset),
+                  let exercises = result as? [Exercise], exercises.count > 0 else { throw WorkOutRoutineError.ReadError }
+            
+            let exercise = exercises[0]
+            let workOutExercise = WorkOutExercise(context: context)
+            workOutExercise.id = .init()
+            workOutExercise.date = .now
+            workOutExercise.exercise = exercise
+            
+            for setData in completeExercise.set {
+                let set = ExerciseSet(context: context)
+                set.setNumber = Util.intToInt16(int: setData.setNumber)
+                set.weight = setData.weight
+                set.reps = Util.intToInt16(int: setData.reps)
+                set.exerciseDuration = Util.intToInt32(int: setData.exerciseDuration)
+                set.restDuration = Util.intToInt32(int: setData.restDuration)
+                
+                workOutExercise.addToSets(set)
+            }
+            workOutRoutine?.addToWorkOutExercise(workOutExercise)
         }
-        workOutRoutine?.addToWorkOutExercise(workOutExercise)
+        Persistent.shared.saveContext()
+    }
+    public func addCompleteExercise(completeExercise: UserWorkOutExercise) {
+        completeExercises.append(completeExercise)
     }
 }
 

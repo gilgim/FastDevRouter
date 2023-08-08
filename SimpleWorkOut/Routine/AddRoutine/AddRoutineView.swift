@@ -72,7 +72,9 @@ struct AddRoutineView: View {
         }
         .alert("Add Exercise", isPresented: $isShowSetAndRest) {
             TextField("Please input set", text: $setInputText)
+                .keyboardType(.decimalPad)
             TextField("Please input rest", text: $restInputText)
+                .keyboardType(.decimalPad)
             Button("OK") {
                 if let selectExerciseStorage {
                     viewModel.addExercise(exercise: selectExerciseStorage, setReps: setInputText, restDuration: restInputText)

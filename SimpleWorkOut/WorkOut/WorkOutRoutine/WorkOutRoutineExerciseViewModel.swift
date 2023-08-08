@@ -48,9 +48,18 @@ class WorkOutRoutineExerciseViewModel: ObservableObject {
     @Published var selectWorkOutExercise: WorkOutByExercise
     @Published var currentSet: Int = 1
     @Published var currentWorkOutStatus: WorkOutStatus = .beforeWorkOut
-    
-    private var weightStorage: Double = 10
-    private var repsStorage: Int = 12
+    @Published var weightInput: String = ""
+    @Published var repsInput: String = ""
+    private var weightStorage: Double {
+        get {
+            return Double(weightInput) ?? 10
+        }
+    }
+    private var repsStorage: Int {
+        get {
+            return Int(repsInput) ?? 12
+        }
+    }
     
     var workOutData: UserWorkOutExercise
     
@@ -80,24 +89,9 @@ class WorkOutRoutineExerciseViewModel: ObservableObject {
             }
         })
     }
-    public func setWeightAndReps(weight: String, reps: String) {
-        if let weight = Double(weight), let reps = Int(reps) {
-            self.weightStorage = weight
-            self.repsStorage = reps
-        }
-        else {
-            self.weightStorage = 10
-            self.repsStorage = 12
-        }
-    }
+    
     public func recordRoutineExerciseWorkOut() {
-        do {
-            print("\(self.workOutData.workOutExercise.name)\(self.workOutData.workOutExercise.id) 저장할 때 \(self.workOutData.id)")
-            try model.addCompleteExercise(completeExercise: self.workOutData)
-        }
-        catch {
-            self.error = error as? WorkOutExerciseError
-        }
+        model.addCompleteExercise(completeExercise: self.workOutData)
     }
     
     public func recordWeigthAndReps(weight: Double?, reps: Int?) {
@@ -105,7 +99,8 @@ class WorkOutRoutineExerciseViewModel: ObservableObject {
         let restDuration = restWorkOutTimer.getDefaultTime() - restWorkOutTimer.getTime()
         let exerciseDuration = singleWorkOutTimer.getTime()
         self.workOutData.set.append(.init(setNumber: currentSet, weight: weight, reps: reps, restDuration: restDuration, exerciseDuration: exerciseDuration))
-
+        self.weightInput = ""
+        self.repsInput = ""
     }
     
     public func workOutStart() {
