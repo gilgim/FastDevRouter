@@ -30,6 +30,8 @@ class ExerciseViewModel: ObservableObject {
     @Published public var exercises: [(name: String, type: String)] = []
     @Published public var selectExercise: WorkOutByExercise? = nil
     @Published public var canWorkOut: Bool = false
+    @Published public var typeList: [String] = []
+    
     public func setSelectExerciseSetAndRest(name: String, type: String) {
         self.selectExercise = .init(name: name, type: type, set: 0, rest: 0)
     }
@@ -66,5 +68,6 @@ class ExerciseViewModel: ObservableObject {
                 return ("","")
             }
         })
+        typeList = Array(Set(list.compactMap { ($0 as? Exercise)?.type }.filter { !$0.isEmpty }))
     }
 }

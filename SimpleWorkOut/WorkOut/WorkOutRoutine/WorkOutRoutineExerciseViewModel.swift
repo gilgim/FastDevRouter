@@ -98,7 +98,7 @@ class WorkOutRoutineExerciseViewModel: ObservableObject {
         guard let weight, let reps else { error = .RecordError; return }
         let restDuration = restWorkOutTimer.getDefaultTime() - restWorkOutTimer.getTime()
         let exerciseDuration = singleWorkOutTimer.getTime()
-        self.workOutData.set.append(.init(setNumber: currentSet, weight: weight, reps: reps, restDuration: restDuration, exerciseDuration: exerciseDuration))
+        self.workOutData.set.append(.init(setNumber: currentSet, weight: weight, reps: reps, restDuration: restDuration, exerciseDuration: exerciseDuration, unit: "FIXME"))
         self.weightInput = ""
         self.repsInput = ""
     }

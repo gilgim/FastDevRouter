@@ -82,6 +82,9 @@ class CustomTimer: ObservableObject {
     }
     @Published public var intTime: Int = 0
     private var timer: Timer?
+    public var isExistTimer: Bool {
+        get {return self.timer != nil ? false : true}
+    }
     public func start() {
         timer = Timer.scheduledTimer(withTimeInterval: 0.01, repeats: true, block: { _ in
             self.intTime += 1
@@ -186,6 +189,15 @@ struct Util {
         } else {
             print("Cannot convert, value is out of range for Int16")
             return Int32.max
+        }
+    }
+    
+    static func formatNumberForDivisibility(double: Double) -> String {
+        if double.truncatingRemainder(dividingBy: 1) != 0 {
+            return String(format: "%.1f", double)
+        }
+        else {
+            return String(Int(double))
         }
     }
 }

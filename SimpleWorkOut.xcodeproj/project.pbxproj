@@ -32,8 +32,11 @@
 		3796D5CC2A6F9EA4008FB26B /* WorkOutExerciseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3796D5CB2A6F9EA4008FB26B /* WorkOutExerciseView.swift */; };
 		3796D5CE2A6FA454008FB26B /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3796D5CD2A6FA454008FB26B /* Util.swift */; };
 		37AB84F52A73367A005CC217 /* WorkOutExerciseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37AB84F42A73367A005CC217 /* WorkOutExerciseViewModel.swift */; };
-		37AB84F72A736B4C005CC217 /* WorkOutExerciseSaveModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37AB84F62A736B4C005CC217 /* WorkOutExerciseSaveModel.swift */; };
+		37AB84F72A736B4C005CC217 /* WorkOutExerciseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37AB84F62A736B4C005CC217 /* WorkOutExerciseModel.swift */; };
 		B068ED412A77EAD0007FF13F /* WorkOutRecordingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B068ED402A77EAD0007FF13F /* WorkOutRecordingView.swift */; };
+		B068ED462A8A7EE9007FF13F /* CommonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B068ED452A8A7EE9007FF13F /* CommonView.swift */; };
+		B077ACB22ABC79BC0077510B /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = B077ACB12ABC79BC0077510B /* Lottie */; };
+		B077ACB52ABC86430077510B /* runningAnimation.json in Resources */ = {isa = PBXBuildFile; fileRef = B077ACB42ABC86430077510B /* runningAnimation.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -64,8 +67,10 @@
 		3796D5CB2A6F9EA4008FB26B /* WorkOutExerciseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkOutExerciseView.swift; sourceTree = "<group>"; };
 		3796D5CD2A6FA454008FB26B /* Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
 		37AB84F42A73367A005CC217 /* WorkOutExerciseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkOutExerciseViewModel.swift; sourceTree = "<group>"; };
-		37AB84F62A736B4C005CC217 /* WorkOutExerciseSaveModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkOutExerciseSaveModel.swift; sourceTree = "<group>"; };
+		37AB84F62A736B4C005CC217 /* WorkOutExerciseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkOutExerciseModel.swift; sourceTree = "<group>"; };
 		B068ED402A77EAD0007FF13F /* WorkOutRecordingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkOutRecordingView.swift; sourceTree = "<group>"; };
+		B068ED452A8A7EE9007FF13F /* CommonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonView.swift; sourceTree = "<group>"; };
+		B077ACB42ABC86430077510B /* runningAnimation.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = runningAnimation.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +78,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B077ACB22ABC79BC0077510B /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -131,7 +137,7 @@
 			children = (
 				3796D5CB2A6F9EA4008FB26B /* WorkOutExerciseView.swift */,
 				37AB84F42A73367A005CC217 /* WorkOutExerciseViewModel.swift */,
-				37AB84F62A736B4C005CC217 /* WorkOutExerciseSaveModel.swift */,
+				37AB84F62A736B4C005CC217 /* WorkOutExerciseModel.swift */,
 			);
 			path = WorkOutExercise;
 			sourceTree = "<group>";
@@ -200,14 +206,24 @@
 		3796D5CA2A6F9E7B008FB26B /* Application */ = {
 			isa = PBXGroup;
 			children = (
+				B077ACB32ABC86310077510B /* LottieJson */,
 				370BAA142A6DF79500725E2A /* CoreData */,
 				370BAA0A2A6DF27500725E2A /* Assets.xcassets */,
 				370BAA062A6DF27400725E2A /* SimpleWorkOutApp.swift */,
+				B068ED452A8A7EE9007FF13F /* CommonView.swift */,
 				370BAA082A6DF27400725E2A /* ContentView.swift */,
 				3796D5CD2A6FA454008FB26B /* Util.swift */,
 				3796D5C72A6F6B83008FB26B /* Errors.swift */,
 			);
 			path = Application;
+			sourceTree = "<group>";
+		};
+		B077ACB32ABC86310077510B /* LottieJson */ = {
+			isa = PBXGroup;
+			children = (
+				B077ACB42ABC86430077510B /* runningAnimation.json */,
+			);
+			path = LottieJson;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -226,6 +242,9 @@
 			dependencies = (
 			);
 			name = SimpleWorkOut;
+			packageProductDependencies = (
+				B077ACB12ABC79BC0077510B /* Lottie */,
+			);
 			productName = SimpleWorkOut;
 			productReference = 370BAA032A6DF27400725E2A /* SimpleWorkOut.app */;
 			productType = "com.apple.product-type.application";
@@ -254,6 +273,9 @@
 				Base,
 			);
 			mainGroup = 370BA9FA2A6DF27400725E2A;
+			packageReferences = (
+				B077ACB02ABC79BC0077510B /* XCRemoteSwiftPackageReference "lottie-spm" */,
+			);
 			productRefGroup = 370BAA042A6DF27400725E2A /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -270,6 +292,7 @@
 			files = (
 				370BAA0E2A6DF27500725E2A /* Preview Assets.xcassets in Resources */,
 				370BAA0B2A6DF27500725E2A /* Assets.xcassets in Resources */,
+				B077ACB52ABC86430077510B /* runningAnimation.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -281,13 +304,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				371D61D92A7B87D900D549A1 /* WorkOutRoutineModel.swift in Sources */,
-				37AB84F72A736B4C005CC217 /* WorkOutExerciseSaveModel.swift in Sources */,
+				37AB84F72A736B4C005CC217 /* WorkOutExerciseModel.swift in Sources */,
 				37753B372A78AE71000C463E /* AddRoutineViewModel.swift in Sources */,
 				37AB84F52A73367A005CC217 /* WorkOutExerciseViewModel.swift in Sources */,
 				37753B2B2A7881BB000C463E /* WorkHistoryView.swift in Sources */,
 				37753B302A78A23B000C463E /* RoutineViewModel.swift in Sources */,
 				371D61DD2A7B929300D549A1 /* WorkOutRoutineExerciseViewModel.swift in Sources */,
 				3796D5C32A6F40BD008FB26B /* Persistent.swift in Sources */,
+				B068ED462A8A7EE9007FF13F /* CommonView.swift in Sources */,
 				370BAA172A6DF7B900725E2A /* WorkOutDataModel.xcdatamodeld in Sources */,
 				370BAA092A6DF27400725E2A /* ContentView.swift in Sources */,
 				37753B352A78AE58000C463E /* AddRoutineView.swift in Sources */,
@@ -507,6 +531,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		B077ACB02ABC79BC0077510B /* XCRemoteSwiftPackageReference "lottie-spm" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-spm.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.3.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		B077ACB12ABC79BC0077510B /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B077ACB02ABC79BC0077510B /* XCRemoteSwiftPackageReference "lottie-spm" */;
+			productName = Lottie;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		370BAA152A6DF7B900725E2A /* WorkOutDataModel.xcdatamodeld */ = {

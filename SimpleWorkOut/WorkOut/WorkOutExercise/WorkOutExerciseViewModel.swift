@@ -14,12 +14,14 @@ struct UserWorkOutExercise {
     let workOutExercise: WorkOutByExercise
     var totalDuration: Int
     var set: [Set]
-    struct Set {
+    struct Set: Hashable {
+        var id = UUID()
         var setNumber: Int
         var weight: Double
         var reps: Int
         var restDuration: Int
         var exerciseDuration: Int
+        var unit: String
     }
 }
 
@@ -30,11 +32,17 @@ class WorkOutExerciseViewModel: ObservableObject {
         case afterWorkOut = "AfterWorkOut"
         case finish = "Finish"
     }
-    private let model = WorkOutExerciseSaveModel()
+    enum WeightUnit: String {
+        case kilogram = "kg"
+        case pound = "lb"
+    }
+    
+    private let model = WorkOutExerciseModel()
     let restNotification = CustomNotification(id: "rest", title: "Rest Finish", message: "Rest finish. Please complete with your workout.")
     
     var cancellable: AnyCancellable?
     @Published public var isAutoStart: Bool = false
+    @Published public var isOverTraining: Bool = false
     @Published public var isAlert: Bool = false
     @Published public var customAlert: CustomAlert? = nil {
         didSet {
@@ -52,7 +60,7 @@ class WorkOutExerciseViewModel: ObservableObject {
         }
     }
     @Published public var isError: Bool = false
-    
+    @Published var isExerciseStart = false
     @Published var isFinishWorkOut = false
     
     @Published var totalWorkOutTimer: CustomTimer = .init()
@@ -63,7 +71,11 @@ class WorkOutExerciseViewModel: ObservableObject {
     @Published var currentSet: Int = 1
     @Published var currentWorkOutStatus: WorkOutStatus = .beforeWorkOut
     @Published var weightInput: String = ""
+    @Published var weightUnit: WeightUnit = .kilogram
     @Published var repsInput: String = ""
+    
+    var disappearTime: Int = 0
+    
     private var weightStorage: Double {
         get {
             return Double(weightInput) ?? 10
@@ -116,15 +128,35 @@ class WorkOutExerciseViewModel: ObservableObject {
         guard let weight, let reps else { error = .RecordError; return }
         let restDuration = restWorkOutTimer.getDefaultTime() - restWorkOutTimer.getTime()
         let exerciseDuration = singleWorkOutTimer.getTime()
-        self.workOutData.set.append(.init(setNumber: currentSet, weight: weight, reps: reps, restDuration: restDuration, exerciseDuration: exerciseDuration))
+        self.workOutData.set.append(.init(setNumber: currentSet, weight: weight, reps: reps, restDuration: restDuration, exerciseDuration: exerciseDuration, unit: self.weightUnit.rawValue))
         self.weightInput = ""
         self.repsInput = ""
     }
     
     public func workOutStart() {
         totalWorkOutTimer.start()
+        isExerciseStart = true
     }
     
+    public func workOutRestart() {
+        totalWorkOutTimer.start()
+        totalWorkOutTimer.addTime(time: (Util.currentDateToInt() - disappearTime) * 100)
+        switch currentWorkOutStatus {
+        case .beforeWorkOut:
+            break
+        case .workOut:
+            singleWorkOutTimer.start()
+            singleWorkOutTimer.addTime(time: (Util.currentDateToInt() - disappearTime) * 100)
+        case .afterWorkOut:
+            restWorkOutTimer.start()
+            restWorkOutTimer.minusTime(time: (Util.currentDateToInt() - disappearTime) * 100)
+        case .finish:
+            break
+        }
+    }
+    public func disappearWorkOut() {
+        disappearTime = Util.currentDateToInt()
+    }
     public func workOutButtonClickAction() {
         
         switch currentWorkOutStatus {
@@ -225,5 +257,24 @@ class WorkOutExerciseViewModel: ObservableObject {
             print("test\(restWorkOutTimer.getTime())")
             restNotification.addNotification(trigerTime: Double(restWorkOutTimer.getTime()))
         }
+    }
+    
+    //  MARK: Input Methods
+    public func getPreviousWeight() -> String {
+        if self.workOutData.set.count > 0 {
+            return String(self.workOutData.set.last!.weight)
+        }
+        else if let workoutExercise = model.read()?.filter({$0.exercise?.name == self.selectWorkOutExercise.name}), workoutExercise.count > 0 {
+            let sortedExercises = workoutExercise.sorted { ($0.date ?? Date()) > ($1.date ?? Date()) }
+            let exercise = sortedExercises.first
+            
+            if let sets = exercise?.sets?.allObjects as? [ExerciseSet],
+               let set = sets.last {
+                let weight = set.weight
+                let unit = set.unit ?? "NotSetting"
+                return Util.formatNumberForDivisibility(double: weight) + unit
+            }
+        }
+        return "Input"
     }
 }

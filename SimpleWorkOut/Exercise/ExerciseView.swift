@@ -27,28 +27,98 @@ struct ExerciseView: View {
         }
     }
     @State private var isShowWorkOutView: Bool = false
+    
+    @State var selectType: String = ""
+    @State var searchText: String = ""
+    var showSearchView: Bool {
+        get {
+            return selectType == "magnifyingglass"
+        }
+    }
+    
     var body: some View {
         VStack {
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: 10) {
+                    Spacer(minLength: 10)
+                    Button {
+                        withAnimation {
+                            if selectType == "magnifyingglass" {
+                                selectType = ""
+                            }
+                            else {
+                                selectType = "magnifyingglass"
+                            }
+                        }
+                    }label: {
+                        Image(systemName: "magnifyingglass")
+                    }
+                    .buttonStyle(CustomButtonStyle(isPressed: selectType == "magnifyingglass"))
+                    ForEach(viewModel.typeList, id:\.self) { type in
+                        Button {
+                            withAnimation(.linear(duration: 0.1)) {
+                                if selectType == type {
+                                    selectType = ""
+                                }
+                                else {
+                                    selectType = type
+                                }
+                            }
+                        }label: {
+                            Text(type)
+                        }
+                        .buttonStyle(CustomButtonStyle(isPressed: selectType == type))
+                    }
+                    Spacer(minLength: 10)
+                }
+                .padding(.bottom, 5)
+            }
+            
+            if showSearchView {
+                SearchBar(text: $searchText)
+                    .padding(.horizontal, 10)
+            }
+            
             List {
-                ForEach(viewModel.exercises, id: \.name) { exercise in
-                    HStack {
-                        Text(exercise.name)
-                        Text(exercise.type)
-                        Button("") {
+                ForEach(viewModel.exercises.filter { exercise in
+                    if selectType == "magnifyingglass" {
+                        return searchText.isEmpty || exercise.name.lowercased().contains(searchText.lowercased())
+                    }
+                    else if selectType != "" {
+                        return exercise.type.lowercased().contains(selectType.lowercased())
+                    }
+                    else {
+                        return true
+                    }
+                }, id: \.name) { exercise in
+                    ExerciseContentView(
+                        exerciseName: exercise.name,
+                        bodyPart: exercise.type,
+                        exercisePlayButtonClickHandler: {
                             viewModel.setSelectExerciseSetAndRest(name: exercise.name, type: exercise.type)
                             isWorkOut = true
+                        },
+                        exerciseButtonClickHandler: {
+                            print("HelloWorld")
                         }
-                    }
+                    )
+                    .listRowInsets(EdgeInsets(top: 5, leading: 12, bottom: 5, trailing: 12))
+                    .background(Color.clear)
+                    .buttonStyle(PlainButtonStyle())
+                    .listRowSeparator(.hidden)
                     .swipeActions {
                         Button {
-                            viewModel.delectExercise(name: exercise.name)
-                        }label: {
+                            withAnimation {
+                                viewModel.delectExercise(name: exercise.name)
+                            }
+                        } label: {
                             Image(systemName: "trash")
                         }
-                        .tint(.red)
+                        .tint(Color(uiColor: .systemRed))
                     }
                 }
             }
+            .listStyle(PlainListStyle())
         }
         .onAppear() {
             viewModel.fetchExercises()
@@ -59,23 +129,30 @@ struct ExerciseView: View {
                     isAlertEnable.toggle()
                 }label: {
                     Image(systemName: "plus")
+                        .bold()
                 }
             }
         }
         .alert("Create Exercise", isPresented: $isAlertEnable) {
-            TextField("Please input exercise name.", text: $exerciseNameInput)
-            TextField("Please input exercise type.", text: $exerciseTypeInput)
+            TextField("Exercise Name", text: $exerciseNameInput)
+            TextField("Body Type", text: $exerciseTypeInput)
             Button("Cancle", role: .cancel) {}
             Button("OK") {
                 viewModel.createExercise(name: exerciseNameInput, type: exerciseTypeInput)
             }
         }
         .alert("Setup Set and Rest", isPresented: $isWorkOut) {
-            TextField("Please input exercise set", text: $setInput)
-                .keyboardType(.decimalPad)
-            TextField("Please input exercise rest time.", text: $restInput)
-                .keyboardType(.decimalPad)
-            Button("Cancle", role: .cancel) {}
+            HStack {
+                Image(systemName: "sportscourt.fill")
+                TextField("Number of Sets", text: $setInput)
+                    .keyboardType(.numberPad)
+            }
+            HStack {
+                Image(systemName: "timer")
+                TextField("Rest Time", text: $restInput)
+                    .keyboardType(.numberPad)
+            }
+            Button("Cancel", role: .cancel) {}
             Button("OK") {
                 viewModel.setSelectExerciseSetAndRest(set: setInput, rest: restInput)
                 isShowWorkOutView = true
@@ -85,7 +162,6 @@ struct ExerciseView: View {
         .navigationDestination(isPresented: $viewModel.canWorkOut) {
             if isShowWorkOutView {
                 WorkOutExerciseView(viewModel: WorkOutExerciseViewModel(selectWorkOutExercise: viewModel.selectExercise))
-                    .onDisappear(){isShowWorkOutView = false}
             }
         }
     }
