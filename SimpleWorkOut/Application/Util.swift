@@ -9,11 +9,14 @@ import Foundation
 import SwiftUI
 import CoreData
 import Combine
+import AVFoundation
 
 //  MARK: Environment
-class TimeSafer: ObservableObject {
-    
+class SoundManager {
+    static func DefaultSound() { AudioServicesPlaySystemSound(1007) }
+    static func VibrateSound() { AudioServicesPlaySystemSound(kSystemSoundID_Vibrate) }
 }
+
 class AppLifecycleManager: ObservableObject {
     var cancellables = Set<AnyCancellable>()
     static let shared = AppLifecycleManager()
@@ -66,6 +69,17 @@ class AppLifecycleManager: ObservableObject {
 }
 
 //  MARK: Timer
+class WorkOutTimer: ObservableObject {
+    enum WorkOutState {
+        case notStart, workingOut, resting, finish
+    }
+    static let shared = WorkOutTimer()
+    
+    var totalWorkOutTimer: CustomTimer? = nil
+    var singleWorkOutTimer: CustomTimer? = nil
+    var restTimer: CustomMinusTimer? = nil
+}
+
 class CustomTimer: ObservableObject {
     public var secondTime: String {
         get {
@@ -89,6 +103,9 @@ class CustomTimer: ObservableObject {
         timer = Timer.scheduledTimer(withTimeInterval: 0.01, repeats: true, block: { _ in
             self.intTime += 1
         })
+        if let timer {
+            RunLoop.current.add(timer, forMode: .common)
+        }
     }
     public func reset() {
         self.intTime = 0
@@ -131,10 +148,16 @@ class CustomMinusTimer: ObservableObject {
         timer = Timer.scheduledTimer(withTimeInterval: 0.01, repeats: true, block: { _ in
             self.intTime -= 1
             if self.intTime <= 0 {
+//                SoundManager.DefaultSound()
+                SoundManager.VibrateSound()
+                
                 self.stop()
                 self.timerStopClosure?(self.intTime)
             }
         })
+        if let timer {
+            RunLoop.current.add(timer, forMode: .common)
+        }
     }
     public func reset() {
         intTime = defaultTime

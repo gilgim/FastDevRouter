@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import AVFoundation
 
 struct ContentView: View {
     @State var selection = 0
@@ -34,6 +35,9 @@ struct ContentView: View {
                     Text("Record")
                 }
             }
+        }
+        .onAppear() {
+            UITabBar.appearance().backgroundColor = UIColor.white
         }
     }
 }

@@ -203,16 +203,9 @@ struct WorkOutExerciseView: View {
             .padding(.bottom, 10)
         }
         .onAppear() {
-            if viewModel.isExerciseStart {
-                viewModel.workOutRestart()
-            }
-            else {
+            if !viewModel.isExerciseStart {
                 viewModel.workOutStart()
             }
-        }
-        .onDisappear(){
-            viewModel.timerStop()
-            viewModel.disappearWorkOut()
         }
         .onReceive(viewModel.totalWorkOutTimer.$intTime) { _ in
             self.viewModel.objectWillChange.send()

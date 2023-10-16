@@ -63,8 +63,8 @@ class WorkOutExerciseViewModel: ObservableObject {
     @Published var isExerciseStart = false
     @Published var isFinishWorkOut = false
     
-    @Published var totalWorkOutTimer: CustomTimer = .init()
-    @Published var singleWorkOutTimer: CustomTimer = .init()
+    @Published var totalWorkOutTimer: CustomTimer
+    @Published var singleWorkOutTimer: CustomTimer
     @Published var restWorkOutTimer: CustomMinusTimer
     
     @Published var selectWorkOutExercise: WorkOutByExercise
@@ -96,10 +96,20 @@ class WorkOutExerciseViewModel: ObservableObject {
         }
         self.selectWorkOutExercise = _selectWorkOutExercise
         self.workOutData = .init(id: .init(), workOutExercise:_selectWorkOutExercise, totalDuration: 0, set: [])
-        self.restWorkOutTimer = .init(setTime: _selectWorkOutExercise.rest)
+        
+        WorkOutTimer.shared.totalWorkOutTimer = .init()
+        totalWorkOutTimer = WorkOutTimer.shared.totalWorkOutTimer ?? .init()
+        
+        WorkOutTimer.shared.singleWorkOutTimer = .init()
+        singleWorkOutTimer = WorkOutTimer.shared.singleWorkOutTimer ?? .init()
+        
+        WorkOutTimer.shared.restTimer = .init(setTime: _selectWorkOutExercise.rest)
+        restWorkOutTimer = WorkOutTimer.shared.restTimer ?? .init(setTime: _selectWorkOutExercise.rest)
+        
         self.restWorkOutTimer.timerStopClosure = { restTime in
             self.restFinish(restTime: restTime)
         }
+        
         cancellable = AppLifecycleManager.shared.appState.sink(receiveValue: { [weak self] state in
             guard let self else {return}
             switch state {
@@ -113,6 +123,12 @@ class WorkOutExerciseViewModel: ObservableObject {
                 break
             }
         })
+    }
+    
+    deinit {
+        WorkOutTimer.shared.totalWorkOutTimer = nil
+        WorkOutTimer.shared.singleWorkOutTimer = nil
+        WorkOutTimer.shared.restTimer = nil
     }
     
     public func recordWorkOut() {
