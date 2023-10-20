@@ -20,6 +20,7 @@ class SoundManager {
 class AppLifecycleManager: ObservableObject {
     var cancellables = Set<AnyCancellable>()
     static let shared = AppLifecycleManager()
+    var lastState: ScenePhase = .active
     @Published var appState: PassthroughSubject<ScenePhase, Never> = .init()
     init() {
         appState.sink { [weak self] state in
@@ -38,7 +39,7 @@ class AppLifecycleManager: ObservableObject {
         .store(in: &cancellables)
     }
     private var foregroundTimeStorage: Int = Int(Date().timeIntervalSince1970)
-    private var _backgroundElapesdTime: Int = 0
+    private var _backgroundElapesdTime: Int = -1
     var backgroundElapesdTime: Int {
         get {return _backgroundElapesdTime}
     }

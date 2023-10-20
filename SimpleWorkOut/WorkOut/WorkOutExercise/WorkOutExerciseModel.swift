@@ -41,6 +41,7 @@ class WorkOutExerciseModel {
     
     func read() -> [WorkOutExercise]? {
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "WorkOutExercise")
+        context.refreshAllObjects()
         do {
             let result = try context.fetch(fetchRequest)
             return result as? [WorkOutExercise]
