@@ -22,6 +22,7 @@ struct CommonView: View {
 
 struct CommonView_Previews: PreviewProvider {
     static var previews: some View {
+        TestView()
         LottieTestView()
         ExerciseContentView()
         CommonView()
@@ -29,10 +30,102 @@ struct CommonView_Previews: PreviewProvider {
         SearchBar(text: .constant(""))
     }
 }
-
+struct TestView: View {
+    @State private var showCustomAlert = false
+    var body: some View {
+        VStack {
+            ZStack {
+                Color.black.opacity(0.58).frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+                    .ignoresSafeArea()
+                
+                GeometryReader { geo in
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 35)
+                            .fill(Color.white)
+                            .shadow(color: Color.black.opacity(0.2), radius: 10, x: 0, y: 10)
+                            .overlay {
+                                RoundedRectangle(cornerRadius: 35)
+                                    .clipShape(Rectangle().offset(y: -240))
+                                RoundedRectangle(cornerRadius: 35)
+                                    .stroke(lineWidth: 5)
+                            }
+                        VStack(spacing: 20) {
+                            Spacer().frame(height: 35)
+                            Text("Title")
+                                .font(.system(size: 30, weight: .semibold, design: .rounded))
+                            Spacer()
+                            HStack {
+                                Button(action: {
+                                    
+                                }) {
+                                    Text("CONFIRM")
+                                        .foregroundColor(.white)
+                                        .padding(8)
+                                        .background(RoundedRectangle(cornerRadius: 25).fill(Color.blue))
+                                }
+                                Spacer().frame(width:30)
+                                Button(action: {
+                                    
+                                }) {
+                                    Text("CONFIRM")
+                                        .foregroundColor(.white)
+                                        .padding(8)
+                                        .background(RoundedRectangle(cornerRadius: 25).fill(Color.blue))
+                                }
+                            }
+                        }
+                        .padding()
+                    }
+                    .frame(width: 270, height: 300)
+                    .position(x: geo.size.width / 2, y: geo.size.height / 2) // 뷰를 중앙에 배치
+                    
+                }
+            }
+        }
+    }
+}
+extension View {
+    func customAlert<Content: View>(isPresented: Binding<Bool>, title: String, message: String, views: [AnyView]) -> some View {
+        self.overlay(
+                Group {
+                    if isPresented.wrappedValue {
+                        ZStack {
+                            Color.black.opacity(0.58).frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+                                .ignoresSafeArea()
+                            
+                            GeometryReader { geo in
+                                ZStack {
+                                    RoundedRectangle(cornerRadius: 24)
+                                        .fill(Color.white)
+                                        .shadow(color: Color.black.opacity(0.2), radius: 10, x: 0, y: 10)
+                                    
+                                    VStack(spacing: 20) {
+                                        Text(title)
+                                            .font(.title)
+                                        
+                                        Button(action: {
+                                            isPresented.wrappedValue = false
+                                        }) {
+                                            Text("CONFIRM")
+                                                .foregroundColor(.white)
+                                                .padding()
+                                                .background(RoundedRectangle(cornerRadius: 8).fill(Color.blue))
+                                        }
+                                    }
+                                    .padding()
+                                }
+                                .frame(width: geo.size.width * 0.8, height: geo.size.height * 0.2)
+                                .position(x: geo.size.width / 2, y: geo.size.height / 2) // 뷰를 중앙에 배치
+                            }
+                        }
+                    }
+                }
+            )
+    }
+}
 struct ExerciseContentView: View {
-    @State var exerciseName: String = "Test Name"
-    @State var bodyPart: String = "Test Part"
+    @State var exerciseName: String = "테스트 입니다"
+    @State var bodyPart: String = "테스트 입니다."
     var exercisePlayButtonClickHandler: (()->())? = nil
     var exerciseButtonClickHandler: (()->())? = nil
     var body: some View {
@@ -44,12 +137,14 @@ struct ExerciseContentView: View {
                 Button {
                     exerciseButtonClickHandler?()
                 }label: {
-                    VStack(alignment: .leading) {
+                    VStack(alignment: .leading, spacing: 8) {
                         Text(exerciseName)
-                            .font(.system(size: 28, weight: .semibold, design: .rounded))
+                            .font(.system(size: 24, weight: .semibold, design: .rounded))
                             .lineLimit(1)
                             .fixedSize()
                         Text(bodyPart)
+                            .font(.system(size: 14, weight: .regular, design: .rounded))
+                            .padding(.leading, 8)
                     }
                     .foregroundColor(.black)
                     .padding(.leading, 24)
@@ -63,12 +158,12 @@ struct ExerciseContentView: View {
                         .resizable()
                         .scaledToFit()
                         .foregroundColor(Color(.systemGreen))
-                        .frame(width: 30)
+                        .frame(width: 25)
                 }
                 .padding(.trailing, 24)
             }
         }
-        .frame(height: 90)
+        .frame(height: 75)
     }
 }
 

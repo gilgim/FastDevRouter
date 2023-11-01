@@ -68,6 +68,6 @@ class ExerciseViewModel: ObservableObject {
                 return ("","")
             }
         })
-        typeList = Array(Set(list.compactMap { ($0 as? Exercise)?.type }.filter { !$0.isEmpty }))
+        typeList = Array(Set(list.compactMap { ($0 as? Exercise)?.type }.filter { !$0.isEmpty })).sorted(by: {$0 < $1})
     }
 }

@@ -99,6 +99,7 @@ struct ExerciseView: View {
                             isWorkOut = true
                         },
                         exerciseButtonClickHandler: {
+                            SoundManager.shared.playSound()
                             print("HelloWorld")
                         }
                     )

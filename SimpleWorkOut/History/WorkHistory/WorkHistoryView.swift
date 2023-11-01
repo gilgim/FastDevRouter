@@ -25,9 +25,9 @@ struct WorkHistoryView: View {
                                     .foregroundColor(.white)
                                     .shadow(radius: 3)
                                     .overlay {
-                                        RoundedRectangle(cornerRadius: 13)
-                                            .stroke(lineWidth: 2)
-                                            .foregroundColor(.black)
+//                                        RoundedRectangle(cornerRadius: 13)
+//                                            .stroke(lineWidth: 2)
+//                                            .foregroundColor(.black)
                                         Text(exerciseName)
                                             .foregroundColor(.black.opacity(0.87))
                                             .font(.system(size: 18, weight: .bold, design: .rounded))

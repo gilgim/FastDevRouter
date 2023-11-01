@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import AVFoundation
 
 @main
 struct SimpleWorkOutApp: App {
@@ -18,6 +19,8 @@ struct SimpleWorkOutApp: App {
                 print("Notification authorization denied because: \(String(describing: error))")
             }
         }
+        try? AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback)
+        try? AVAudioSession.sharedInstance().setActive(true)
     }
     var body: some Scene {
         WindowGroup {

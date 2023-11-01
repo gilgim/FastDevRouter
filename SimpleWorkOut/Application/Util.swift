@@ -13,8 +13,20 @@ import AVFoundation
 
 //  MARK: Environment
 class SoundManager {
-    static func DefaultSound() { AudioServicesPlaySystemSound(1007) }
-    static func VibrateSound() { AudioServicesPlaySystemSound(kSystemSoundID_Vibrate) }
+    static let shared = SoundManager()
+    var player: AVAudioPlayer?
+    func playSound() {
+        guard let url = Bundle.main.url(forResource: "start-sound", withExtension: ".mp3") else {return}
+        do {
+            player = try AVAudioPlayer(contentsOf: url)
+            player?.play()
+        } catch let error {
+            print("Error playing sound. \(error.localizedDescription)")
+        }
+    }
+    func stopSound() {
+        player?.stop()
+    }
 }
 
 class AppLifecycleManager: ObservableObject {
@@ -149,9 +161,9 @@ class CustomMinusTimer: ObservableObject {
         timer = Timer.scheduledTimer(withTimeInterval: 0.01, repeats: true, block: { _ in
             self.intTime -= 1
             if self.intTime <= 0 {
-//                SoundManager.DefaultSound()
-                SoundManager.VibrateSound()
-                
+                DispatchQueue.global(qos: .background).async {
+                    SoundManager.shared.playSound()
+                }
                 self.stop()
                 self.timerStopClosure?(self.intTime)
             }
@@ -261,4 +273,36 @@ struct CustomNotification {
     }
 }
 
+
+//  MARK: Extension
+extension Color {
+    init(hex: String) {
+            let hex = hex.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
+            var int: UInt64 = 0
+
+            Scanner(string: hex).scanHexInt64(&int)
+            let a, r, g, b: UInt64
+            switch hex.count {
+            case 3: // RGB (12-bit)
+                (a, r, g, b) = (255, (int >> 8) * 17, (int >> 4 & 0xF) * 17, (int & 0xF) * 17)
+            case 6: // RGB (24-bit)
+                (a, r, g, b) = (255, int >> 16, int >> 8 & 0xFF, int & 0xFF)
+            case 8: // ARGB (32-bit)
+                (a, r, g, b) = (int >> 24, int >> 16 & 0xFF, int >> 8 & 0xFF, int & 0xFF)
+            default:
+                (a, r, g, b) = (255, 0, 0, 0)
+            }
+
+            self.init(
+                .sRGB,
+                red: Double(r) / 255,
+                green: Double(g) / 255,
+                blue: Double(b) / 255,
+                opacity: Double(a) / 255
+            )
+        }
+}
+enum AlertButtonType {
+    case ok, dismiss, cancel
+}
 
