@@ -31,6 +31,8 @@
 		3796D5C82A6F6B83008FB26B /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3796D5C72A6F6B83008FB26B /* Errors.swift */; };
 		3796D5CC2A6F9EA4008FB26B /* WorkOutExerciseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3796D5CB2A6F9EA4008FB26B /* WorkOutExerciseView.swift */; };
 		3796D5CE2A6FA454008FB26B /* Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3796D5CD2A6FA454008FB26B /* Util.swift */; };
+		379CD4282AF219DE0052082B /* WorkHistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379CD4272AF219DE0052082B /* WorkHistoryViewModel.swift */; };
+		379CD42B2AF21A660052082B /* WorkHistoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379CD42A2AF21A660052082B /* WorkHistoryModel.swift */; };
 		37AB84F52A73367A005CC217 /* WorkOutExerciseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37AB84F42A73367A005CC217 /* WorkOutExerciseViewModel.swift */; };
 		37AB84F72A736B4C005CC217 /* WorkOutExerciseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37AB84F62A736B4C005CC217 /* WorkOutExerciseModel.swift */; };
 		B068ED412A77EAD0007FF13F /* WorkOutRecordingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B068ED402A77EAD0007FF13F /* WorkOutRecordingView.swift */; };
@@ -66,6 +68,8 @@
 		3796D5C72A6F6B83008FB26B /* Errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
 		3796D5CB2A6F9EA4008FB26B /* WorkOutExerciseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkOutExerciseView.swift; sourceTree = "<group>"; };
 		3796D5CD2A6FA454008FB26B /* Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Util.swift; sourceTree = "<group>"; };
+		379CD4272AF219DE0052082B /* WorkHistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkHistoryViewModel.swift; sourceTree = "<group>"; };
+		379CD42A2AF21A660052082B /* WorkHistoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkHistoryModel.swift; sourceTree = "<group>"; };
 		37AB84F42A73367A005CC217 /* WorkOutExerciseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkOutExerciseViewModel.swift; sourceTree = "<group>"; };
 		37AB84F62A736B4C005CC217 /* WorkOutExerciseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkOutExerciseModel.swift; sourceTree = "<group>"; };
 		B068ED402A77EAD0007FF13F /* WorkOutRecordingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkOutRecordingView.swift; sourceTree = "<group>"; };
@@ -158,7 +162,7 @@
 			isa = PBXGroup;
 			children = (
 				B068ED402A77EAD0007FF13F /* WorkOutRecordingView.swift */,
-				37753B2A2A7881BB000C463E /* WorkHistoryView.swift */,
+				379CD4292AF21A4B0052082B /* WorkHistory */,
 			);
 			path = History;
 			sourceTree = "<group>";
@@ -216,6 +220,16 @@
 				3796D5C72A6F6B83008FB26B /* Errors.swift */,
 			);
 			path = Application;
+			sourceTree = "<group>";
+		};
+		379CD4292AF21A4B0052082B /* WorkHistory */ = {
+			isa = PBXGroup;
+			children = (
+				37753B2A2A7881BB000C463E /* WorkHistoryView.swift */,
+				379CD4272AF219DE0052082B /* WorkHistoryViewModel.swift */,
+				379CD42A2AF21A660052082B /* WorkHistoryModel.swift */,
+			);
+			path = WorkHistory;
 			sourceTree = "<group>";
 		};
 		B077ACB32ABC86310077510B /* LottieJson */ = {
@@ -314,7 +328,9 @@
 				B068ED462A8A7EE9007FF13F /* CommonView.swift in Sources */,
 				370BAA172A6DF7B900725E2A /* WorkOutDataModel.xcdatamodeld in Sources */,
 				370BAA092A6DF27400725E2A /* ContentView.swift in Sources */,
+				379CD42B2AF21A660052082B /* WorkHistoryModel.swift in Sources */,
 				37753B352A78AE58000C463E /* AddRoutineView.swift in Sources */,
+				379CD4282AF219DE0052082B /* WorkHistoryViewModel.swift in Sources */,
 				371D61D52A7B87C000D549A1 /* WorkOutRoutineView.swift in Sources */,
 				37753B322A78A248000C463E /* RoutineModel.swift in Sources */,
 				3796D5CE2A6FA454008FB26B /* Util.swift in Sources */,

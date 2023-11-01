@@ -114,7 +114,7 @@ struct WorkOutExerciseView: View {
                     HStack {
                         Text(" Reps ")
                         Divider()
-                        TextField("12", text: $viewModel.repsInput)
+                        TextField(viewModel.getPreviousReps(), text: $viewModel.repsInput)
                             .multilineTextAlignment(.center)
                             .keyboardType(.decimalPad)
                         Text("Reps")
@@ -160,7 +160,7 @@ struct WorkOutExerciseView: View {
                             Text("\(recordSet.setNumber)")
                                 .frame(maxWidth: .infinity)
                             Divider()
-                            Text("\(recordSet.exerciseDuration)")
+                            Text("\(Util.intToSecond(intTime: recordSet.exerciseDuration))")
                                 .frame(maxWidth: .infinity)
                             Divider()
                             Text("\(Util.formatNumberForDivisibility(double: recordSet.weight))\(recordSet.unit)")

@@ -74,16 +74,18 @@ class WorkOutExerciseViewModel: ObservableObject {
     @Published var weightUnit: WeightUnit = .kilogram
     @Published var repsInput: String = ""
     
+    var lastWeight: Double = 10
+    var lastReps: Int = 12
     var disappearTime: Int = 0
     
     private var weightStorage: Double {
         get {
-            return Double(weightInput) ?? 10
+            return Double(weightInput) ?? lastWeight
         }
     }
     private var repsStorage: Int {
         get {
-            return Int(repsInput) ?? 12
+            return Int(repsInput) ?? lastReps
         }
     }
     
@@ -140,11 +142,18 @@ class WorkOutExerciseViewModel: ObservableObject {
         }
     }
     
-    private func recordWeigthAndReps(weight: Double?, reps: Int?) {
+    private func recordWeigthAndReps(weight: Double?, reps: Int?, exerciseDuration: Int? = nil) {
         guard let weight, let reps else { error = .RecordError; return }
         let restDuration = restWorkOutTimer.getDefaultTime() - restWorkOutTimer.getTime()
-        let exerciseDuration = singleWorkOutTimer.getTime()
-        self.workOutData.set.append(.init(setNumber: currentSet, weight: weight, reps: reps, restDuration: restDuration, exerciseDuration: exerciseDuration, unit: self.weightUnit.rawValue))
+        var tempExerciseDuration = 0
+        if let exerciseDuration = exerciseDuration {
+            tempExerciseDuration = exerciseDuration
+        }
+        else {
+            tempExerciseDuration = singleWorkOutTimer.getTime()
+        }
+         
+        self.workOutData.set.append(.init(setNumber: currentSet, weight: weight, reps: reps, restDuration: restDuration, exerciseDuration: tempExerciseDuration, unit: self.weightUnit.rawValue))
         self.weightInput = ""
         self.repsInput = ""
     }
@@ -196,6 +205,7 @@ class WorkOutExerciseViewModel: ObservableObject {
     }
     
     public func restFinish(restTime: Int) {
+        var tempExerciseDuration: Int? = nil
         if currentSet < selectWorkOutExercise.set {
             if restTime > 0 {
                 let title = "Rest End"
@@ -204,6 +214,7 @@ class WorkOutExerciseViewModel: ObservableObject {
                     if self.isAutoStart {
                         self.restWorkOutTimer.stop()
                         self.restWorkOutTimer.reset()
+                        tempExerciseDuration = self.singleWorkOutTimer.getTime()
                         self.singleWorkOutTimer.reset()
                         self.singleWorkOutTimer.start()
                         self.currentWorkOutStatus = .workOut
@@ -211,7 +222,7 @@ class WorkOutExerciseViewModel: ObservableObject {
                     else {
                         self.currentWorkOutStatus = .beforeWorkOut
                     }
-                    self.recordWeigthAndReps(weight: self.weightStorage, reps: self.repsStorage)
+                    self.recordWeigthAndReps(weight: self.weightStorage, reps: self.repsStorage, exerciseDuration: tempExerciseDuration)
                     self.currentSet += 1
                 }, cancelButtonAction: {})
             }
@@ -220,6 +231,7 @@ class WorkOutExerciseViewModel: ObservableObject {
                 if self.isAutoStart {
                     self.restWorkOutTimer.stop()
                     self.restWorkOutTimer.reset()
+                    tempExerciseDuration = self.singleWorkOutTimer.getTime()
                     self.singleWorkOutTimer.reset()
                     self.singleWorkOutTimer.start()
                     self.currentWorkOutStatus = .workOut
@@ -227,7 +239,7 @@ class WorkOutExerciseViewModel: ObservableObject {
                 else {
                     self.currentWorkOutStatus = .beforeWorkOut
                 }
-                self.recordWeigthAndReps(weight: self.weightStorage, reps: self.repsStorage)
+                self.recordWeigthAndReps(weight: self.weightStorage, reps: self.repsStorage, exerciseDuration: tempExerciseDuration)
                 self.currentSet += 1
             }
         }
@@ -278,19 +290,39 @@ class WorkOutExerciseViewModel: ObservableObject {
     //  MARK: Input Methods
     public func getPreviousWeight() -> String {
         if self.workOutData.set.count > 0 {
-            return String(self.workOutData.set.last!.weight)
+            let weight = self.workOutData.set.last!.weight
+            return String(Util.formatNumberForDivisibility(double: weight)) + self.workOutData.set.last!.unit
         }
         else if let workoutExercise = model.read()?.filter({$0.exercise?.name == self.selectWorkOutExercise.name}), workoutExercise.count > 0 {
             let sortedExercises = workoutExercise.sorted { ($0.date ?? Date()) > ($1.date ?? Date()) }
             let exercise = sortedExercises.first
             
             if let sets = exercise?.sets?.allObjects as? [ExerciseSet],
-               let set = sets.last {
+               let set = sets.sorted(by: { $0.setNumber > $1.setNumber}).first {
                 let weight = set.weight
-                let unit = set.unit ?? "NotSetting"
+                let unit = set.unit ?? "unfind unit"
+                self.lastWeight = weight
+                
                 return Util.formatNumberForDivisibility(double: weight) + unit
             }
         }
-        return "Input"
+        return Util.formatNumberForDivisibility(double: lastWeight) + "kg"
+    }
+    public func getPreviousReps() -> String {
+        if self.workOutData.set.count > 0 {
+            return String(self.workOutData.set.last!.reps)
+        }
+        else if let workoutExercise = model.read()?.filter({$0.exercise?.name == self.selectWorkOutExercise.name}), workoutExercise.count > 0 {
+            let sortedExercises = workoutExercise.sorted { ($0.date ?? Date()) > ($1.date ?? Date()) }
+            let exercise = sortedExercises.first
+            
+            if let sets = exercise?.sets?.allObjects as? [ExerciseSet],
+               let set = sets.sorted(by: { $0.setNumber > $1.setNumber}).first {
+                let reps = set.reps
+                self.lastReps = Int(reps)
+                return "\(reps)"
+            }
+        }
+        return "\(self.lastReps)"
     }
 }
