@@ -19,6 +19,7 @@ struct WorkHistoryView: View {
                         Button {
                             isPushView.toggle()
                             viewModel.selectExerciseName = exerciseName
+                            viewModel.fetchExeciseHistorysDetail()
                         }label: {
                             ZStack {
                                 RoundedRectangle(cornerRadius: 13)
@@ -41,13 +42,13 @@ struct WorkHistoryView: View {
                 .padding(.horizontal, 24)
                 Spacer().frame(height: 60)
             }
-            .navigationTitle("운동 기록")
+            .navigationTitle("History")
         }
         .onAppear() {
             viewModel.fetchExerciseHistorys()
         }
         .navigationDestination(isPresented: $isPushView) {
-            Text("Hello, World")
+            WorkHistoryComponentView(viewModel: .constant(viewModel))
                 .navigationTitle(viewModel.selectExerciseName)
         }
     }
@@ -60,10 +61,59 @@ struct WorkHistoryView_Previews: PreviewProvider {
 }
 
 struct WorkHistoryComponentView: View {
-    @State var viewModel: WorkHistoryViewModel
-    var body: some View {
-        VStack {
-            
+    @Binding var viewModel: WorkHistoryViewModel
+    struct DetailView: View {
+        @State var isOpen: Bool = false
+        @Binding var workOutHistory: WorkOutExercise
+        
+        var body: some View {
+            VStack {
+                Button {
+                    withAnimation {
+                        isOpen.toggle()
+                    }
+                } label: {
+                    HStack {
+                        RoundedRectangle(cornerRadius: 12)
+                            .frame(height: 80, alignment: .center)
+                            .foregroundColor(.white)
+                            .shadow(radius: 4)
+                            .padding(.horizontal, 24)
+                            .overlay {
+                                Text(workOutHistory.date?.localizedString() ?? Date().localizedString())
+                            }
+                        Spacer()
+                        Image(systemName: isOpen ? "chevron.up" : "chevron.down")
+                            .foregroundColor(.black.opacity(0.87))
+                    }
+                }
+                .fixedSize(horizontal: false, vertical: true) // 버튼의 세로 크기를 고정합니다.
+
+                if isOpen {
+                    VStack {
+                        ForEach(sets, id: \.self) { set in
+                            Text("\(set.setNumber)")
+                        }
+                    }
+                    .transition(.slide) // 펼쳐지고 접힐 때 슬라이드 효과를 추가합니다.
+                }
+            }
         }
+        
+        var sets: [ExerciseSet] {
+            return workOutHistory.sets?.allObjects as? [ExerciseSet] ?? []
+        }
+        
+        func detailHeight() -> CGFloat {
+            return isOpen ? CGFloat(sets.count) * 20 : 0
+        }
+    }
+    var body: some View {
+        List {
+            ForEach(viewModel.workOutDetailList, id: \.id) { history in
+                DetailView(workOutHistory: .constant(history))
+            }
+        }
+        .listStyle(PlainListStyle())
     }
 }

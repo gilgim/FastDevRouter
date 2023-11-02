@@ -18,6 +18,7 @@ struct SimpleWorkOutApp: App {
                 print("Notification authorization denied because: \(String(describing: error))")
             }
         }
+        Log.logLocale.printProperty
     }
     var body: some Scene {
         WindowGroup {

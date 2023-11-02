@@ -12,6 +12,17 @@ import Combine
 import AVFoundation
 
 //  MARK: Environment
+enum Log: String {
+    case logLocale
+    var printProperty: () {
+        var log: String = ""
+        switch self {
+        case .logLocale:
+            log = "\(Locale.current)"
+        }
+        return print("===== LOG =====\n\(self) : \(log)")
+    }
+}
 class SoundManager {
     static func DefaultSound() { AudioServicesPlaySystemSound(1007) }
     static func VibrateSound() { AudioServicesPlaySystemSound(kSystemSoundID_Vibrate) }
@@ -261,4 +272,12 @@ struct CustomNotification {
     }
 }
 
-
+extension Date {
+    func localizedString() -> String {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .long
+        formatter.timeStyle = .short
+        formatter.dateFormat = DateFormatter.dateFormat(fromTemplate: "yMMMMdH", options: 0, locale: Locale.current)
+        return formatter.string(from: self)
+    }
+}

@@ -32,7 +32,7 @@ struct ContentView: View {
                 }
                 .tabItem {
                     Image(systemName: "chart.bar.doc.horizontal")
-                    Text("Record")
+                    Text("History")
                 }
             }
         }

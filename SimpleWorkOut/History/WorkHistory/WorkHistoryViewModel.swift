@@ -19,7 +19,7 @@ class WorkHistoryViewModel: ObservableObject {
     @Published public var isError: Bool = false
     @Published public var workOutExercises: [String] = []
     @Published public var selectExerciseName: String = ""
-    
+    @Published public var workOutDetailList: [WorkOutExercise] = []
     public func delectExercise(id: String) {
         model.delete(id: id)
         fetchExerciseHistorys()
@@ -41,20 +41,13 @@ class WorkHistoryViewModel: ObservableObject {
     public func fetchExeciseHistorysDetail() {
         guard let list = model.read() else {return}
         var detailHistory = list.map({
-            if let workOutExericse = $0 as? WorkOutExercise {
-                return workOutExericse.exercise
-            }
-            return nil
+            let workOutExericse = $0 as! WorkOutExercise
+            return workOutExericse
         })
-        detailHistory = detailHistory.filter { exercise in
-            guard let exercise else {return false}
-            if exercise.name == self.selectExerciseName {
-                return true
-            }
-            else {
-                return false
-            }
+        detailHistory = detailHistory.filter { workOutExercise in
+            guard workOutExercise.exercise?.name == self.selectExerciseName else {return false}
+            return true
         }
-        
+        workOutDetailList = detailHistory
     }
 }
