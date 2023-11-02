@@ -12,6 +12,17 @@ import Combine
 import AVFoundation
 
 //  MARK: Environment
+enum Log: String {
+    case logLocale
+    var printProperty: () {
+        var log: String = ""
+        switch self {
+        case .logLocale:
+            log = "\(Locale.current)"
+        }
+        return print("===== LOG =====\n\(self) : \(log)")
+    }
+}
 class SoundManager {
     static let shared = SoundManager()
     var player: AVAudioPlayer?
@@ -273,7 +284,6 @@ struct CustomNotification {
     }
 }
 
-
 //  MARK: Extension
 extension Color {
     init(hex: String) {
@@ -305,4 +315,12 @@ extension Color {
 enum AlertButtonType {
     case ok, dismiss, cancel
 }
-
+extension Date {
+    func localizedString() -> String {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .long
+        formatter.timeStyle = .short
+        formatter.dateFormat = DateFormatter.dateFormat(fromTemplate: "yMMMMdH", options: 0, locale: Locale.current)
+        return formatter.string(from: self)
+    }
+}

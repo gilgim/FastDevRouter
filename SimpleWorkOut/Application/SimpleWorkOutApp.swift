@@ -21,6 +21,7 @@ struct SimpleWorkOutApp: App {
         }
         try? AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback)
         try? AVAudioSession.sharedInstance().setActive(true)
+        Log.logLocale.printProperty
     }
     var body: some Scene {
         WindowGroup {
