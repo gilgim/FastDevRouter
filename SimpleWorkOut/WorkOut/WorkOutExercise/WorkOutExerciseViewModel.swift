@@ -142,9 +142,15 @@ class WorkOutExerciseViewModel: ObservableObject {
         }
     }
     
-    private func recordWeigthAndReps(weight: Double?, reps: Int?, exerciseDuration: Int? = nil) {
+    private func recordWeigthAndReps(weight: Double?, reps: Int?, exerciseDuration: Int? = nil, restDuration: Int? = nil) {
         guard let weight, let reps else { error = .RecordError; return }
-        let restDuration = restWorkOutTimer.getDefaultTime() - restWorkOutTimer.getTime()
+        var tempRestDuration = 0
+        if let restDuration = restDuration {
+            tempRestDuration = restWorkOutTimer.getDefaultTime() - tempRestDuration
+        }
+        else {
+            tempRestDuration = restWorkOutTimer.getDefaultTime() - restWorkOutTimer.getTime()
+        }
         var tempExerciseDuration = 0
         if let exerciseDuration = exerciseDuration {
             tempExerciseDuration = exerciseDuration
@@ -153,7 +159,7 @@ class WorkOutExerciseViewModel: ObservableObject {
             tempExerciseDuration = singleWorkOutTimer.getTime()
         }
          
-        self.workOutData.set.append(.init(setNumber: currentSet, weight: weight, reps: reps, restDuration: restDuration, exerciseDuration: tempExerciseDuration, unit: self.weightUnit.rawValue))
+        self.workOutData.set.append(.init(setNumber: currentSet, weight: weight, reps: reps, restDuration: tempRestDuration, exerciseDuration: tempExerciseDuration, unit: self.weightUnit.rawValue))
         self.weightInput = ""
         self.repsInput = ""
     }
@@ -205,6 +211,7 @@ class WorkOutExerciseViewModel: ObservableObject {
     }
     
     public func restFinish(restTime: Int) {
+        var tempRestDuration: Int? = nil
         var tempExerciseDuration: Int? = nil
         if currentSet < selectWorkOutExercise.set {
             if restTime > 0 {
@@ -212,6 +219,7 @@ class WorkOutExerciseViewModel: ObservableObject {
                 let massege = "Are you ending your rest period"
                 customAlert = .init(title: title, message: massege, okButtonAction: {
                     if self.isAutoStart {
+                        tempRestDuration = self.restWorkOutTimer.getTime()
                         self.restWorkOutTimer.stop()
                         self.restWorkOutTimer.reset()
                         tempExerciseDuration = self.singleWorkOutTimer.getTime()
@@ -222,13 +230,14 @@ class WorkOutExerciseViewModel: ObservableObject {
                     else {
                         self.currentWorkOutStatus = .beforeWorkOut
                     }
-                    self.recordWeigthAndReps(weight: self.weightStorage, reps: self.repsStorage, exerciseDuration: tempExerciseDuration)
+                    self.recordWeigthAndReps(weight: self.weightStorage, reps: self.repsStorage, exerciseDuration: tempExerciseDuration, restDuration: tempRestDuration)
                     self.currentSet += 1
                 }, cancelButtonAction: {})
             }
             else {
                 self.isAlert = false
                 if self.isAutoStart {
+                    tempRestDuration = self.restWorkOutTimer.getTime()
                     self.restWorkOutTimer.stop()
                     self.restWorkOutTimer.reset()
                     tempExerciseDuration = self.singleWorkOutTimer.getTime()
@@ -239,7 +248,7 @@ class WorkOutExerciseViewModel: ObservableObject {
                 else {
                     self.currentWorkOutStatus = .beforeWorkOut
                 }
-                self.recordWeigthAndReps(weight: self.weightStorage, reps: self.repsStorage, exerciseDuration: tempExerciseDuration)
+                self.recordWeigthAndReps(weight: self.weightStorage, reps: self.repsStorage, exerciseDuration: tempExerciseDuration, restDuration: tempRestDuration)
                 self.currentSet += 1
             }
         }

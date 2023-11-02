@@ -160,7 +160,7 @@ struct WorkOutExerciseView: View {
                             Text("\(recordSet.setNumber)")
                                 .frame(maxWidth: .infinity)
                             Divider()
-                            Text("\(Util.intToSecond(intTime: recordSet.exerciseDuration))")
+                            Text("\(Util.intToSecond(intTime: recordSet.restDuration))")
                                 .frame(maxWidth: .infinity)
                             Divider()
                             Text("\(Util.formatNumberForDivisibility(double: recordSet.weight))\(recordSet.unit)")

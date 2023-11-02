@@ -7,5 +7,12 @@
 		<string>remote-notification</string>
 		<string>push-to-talk</string>
 	</array>
+	<key>CFBundleLocalizations</key>
+	<array>
+		<string>en</string>
+		<string>ja</string>
+		<string>zh</string>
+		<string>ko</string>
+	</array>
 </dict>
 </plist>

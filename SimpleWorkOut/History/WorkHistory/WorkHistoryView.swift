@@ -49,6 +49,7 @@ struct WorkHistoryView: View {
         }
         .navigationDestination(isPresented: $isPushView) {
             WorkHistoryComponentView(viewModel: .constant(viewModel))
+                .navigationBarTitleDisplayMode(.inline)
                 .navigationTitle(viewModel.selectExerciseName)
         }
     }
@@ -62,58 +63,45 @@ struct WorkHistoryView_Previews: PreviewProvider {
 
 struct WorkHistoryComponentView: View {
     @Binding var viewModel: WorkHistoryViewModel
-    struct DetailView: View {
-        @State var isOpen: Bool = false
-        @Binding var workOutHistory: WorkOutExercise
-        
-        var body: some View {
-            VStack {
-                Button {
-                    withAnimation {
-                        isOpen.toggle()
-                    }
-                } label: {
-                    HStack {
-                        RoundedRectangle(cornerRadius: 12)
-                            .frame(height: 80, alignment: .center)
-                            .foregroundColor(.white)
-                            .shadow(radius: 4)
-                            .padding(.horizontal, 24)
-                            .overlay {
-                                Text(workOutHistory.date?.localizedString() ?? Date().localizedString())
-                            }
-                        Spacer()
-                        Image(systemName: isOpen ? "chevron.up" : "chevron.down")
-                            .foregroundColor(.black.opacity(0.87))
-                    }
-                }
-                .fixedSize(horizontal: false, vertical: true) // 버튼의 세로 크기를 고정합니다.
 
-                if isOpen {
-                    VStack {
-                        ForEach(sets, id: \.self) { set in
-                            Text("\(set.setNumber)")
-                        }
-                    }
-                    .transition(.slide) // 펼쳐지고 접힐 때 슬라이드 효과를 추가합니다.
-                }
-            }
-        }
-        
-        var sets: [ExerciseSet] {
-            return workOutHistory.sets?.allObjects as? [ExerciseSet] ?? []
-        }
-        
-        func detailHeight() -> CGFloat {
-            return isOpen ? CGFloat(sets.count) * 20 : 0
-        }
-    }
     var body: some View {
         List {
             ForEach(viewModel.workOutDetailList, id: \.id) { history in
-                DetailView(workOutHistory: .constant(history))
+                DetailView(workOutExercise: .constant(history))
             }
         }
         .listStyle(PlainListStyle())
+    }
+    
+    struct DetailView: View {
+        @Binding var workOutExercise: WorkOutExercise
+        @State var isOpen: Bool = false
+        var body: some View {
+            Section(header: header) {
+                if isOpen {
+                    ForEach(sets, id: \.id) { set in
+                        Text("Set \(set.setNumber): \(Util.formatNumberForDivisibility(double: set.weight))\(set.unit ?? "kg") x \(set.reps) reps, Rest: \(Util.intToSecond(intTime: Int(set.restDuration))) seconds")
+
+                    }
+                }
+            }
+        }
+        var sets: [ExerciseSet] {
+            return (workOutExercise.sets?.allObjects as? [ExerciseSet] ?? []).sorted(by: {$0.setNumber < $1.setNumber})
+        }
+        var header: some View {
+            Button(action: {
+                withAnimation {
+                    isOpen.toggle()
+                }
+            }) {
+                HStack {
+                    Text("\(workOutExercise.date?.localizedString() ?? "")")
+                        .font(.system(size: 15, weight: .semibold, design: .rounded))
+                    Spacer()
+                    Image(systemName: isOpen ? "chevron.up" : "chevron.down")
+                }
+            }
+        }
     }
 }
