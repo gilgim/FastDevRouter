@@ -235,7 +235,7 @@ struct WorkOutExerciseView: View {
             }
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
-                    
+                    viewModel.recordWorkOut()
                 } label: {
                     Text("Finish")
                         .fontWeight(.bold)

@@ -146,7 +146,7 @@ class WorkOutExerciseViewModel: ObservableObject {
         guard let weight, let reps else { error = .RecordError; return }
         var tempRestDuration = 0
         if let restDuration = restDuration {
-            tempRestDuration = restWorkOutTimer.getDefaultTime() - tempRestDuration
+            tempRestDuration = restWorkOutTimer.getDefaultTime() - restDuration
         }
         else {
             tempRestDuration = restWorkOutTimer.getDefaultTime() - restWorkOutTimer.getTime()
