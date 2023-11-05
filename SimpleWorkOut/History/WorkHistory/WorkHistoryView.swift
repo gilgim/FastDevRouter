@@ -63,14 +63,45 @@ struct WorkHistoryView_Previews: PreviewProvider {
 
 struct WorkHistoryComponentView: View {
     @Binding var viewModel: WorkHistoryViewModel
-
+    @State var isEditMode: Bool = false
     var body: some View {
-        List {
-            ForEach(viewModel.workOutDetailList, id: \.id) { history in
-                DetailView(workOutExercise: .constant(history))
+        Group {
+            if isEditMode {
+                List {
+                    ForEach(viewModel.workOutDetailList, id: \.id) { history in
+                        HStack {
+                            Text("\(history.date?.localizedString() ?? "")")
+                                .font(.system(size: 15, weight: .semibold, design: .rounded))
+                            Spacer()
+                        }
+                    }
+                }
+            }
+            else {
+                List {
+                    ForEach(viewModel.workOutDetailList, id: \.id) { history in
+                        DetailView(workOutExercise: .constant(history))
+                    }
+                }
             }
         }
         .listStyle(PlainListStyle())
+        .toolbar(content: {
+            ToolbarItem(placement: .topBarTrailing) {
+                Button {
+                    isEditMode.toggle()
+                }label: {
+                    if isEditMode {
+                        Text("Finish")
+                            .tint(.red)
+                    }
+                    else {
+                        Image(systemName: "square.and.pencil")
+                    }
+                }
+                .tint(.black.opacity(0.87))
+            }
+        })
     }
     
     struct DetailView: View {

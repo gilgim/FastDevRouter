@@ -20,6 +20,7 @@ struct ContentView: View {
                     Image(systemName: "figure.run")
                     Text("Exercise")
                 }
+                .tag(0)
                 NavigationStack {
                     RoutineView()
                 }
@@ -27,6 +28,7 @@ struct ContentView: View {
                     Image(systemName: "list.clipboard")
                     Text("Routine")
                 }
+                .tag(1)
                 NavigationStack {
                     WorkHistoryView()
                 }
@@ -34,6 +36,7 @@ struct ContentView: View {
                     Image(systemName: "chart.bar.doc.horizontal")
                     Text("History")
                 }
+                .tag(2)
             }
         }
         .onAppear() {
