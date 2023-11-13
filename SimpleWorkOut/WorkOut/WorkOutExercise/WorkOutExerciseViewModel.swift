@@ -300,6 +300,7 @@ class WorkOutExerciseViewModel: ObservableObject {
     public func getPreviousWeight() -> String {
         if self.workOutData.set.count > 0 {
             let weight = self.workOutData.set.last!.weight
+            self.lastWeight = weight
             return String(Util.formatNumberForDivisibility(double: weight)) + self.workOutData.set.last!.unit
         }
         else if let workoutExercise = model.read()?.filter({$0.exercise?.name == self.selectWorkOutExercise.name}), workoutExercise.count > 0 {
@@ -319,6 +320,7 @@ class WorkOutExerciseViewModel: ObservableObject {
     }
     public func getPreviousReps() -> String {
         if self.workOutData.set.count > 0 {
+            self.lastReps = self.workOutData.set.last!.reps
             return String(self.workOutData.set.last!.reps)
         }
         else if let workoutExercise = model.read()?.filter({$0.exercise?.name == self.selectWorkOutExercise.name}), workoutExercise.count > 0 {
