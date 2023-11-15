@@ -10,6 +10,7 @@ import SwiftUI
 import CoreData
 import Combine
 import AVFoundation
+import AudioToolbox
 
 //  MARK: Environment
 enum Log: String {
@@ -37,6 +38,13 @@ class SoundManager {
     }
     func stopSound() {
         player?.stop()
+    }
+    func areHeadphonesConnected() -> Bool {
+        let route = AVAudioSession.sharedInstance().currentRoute
+        for output in route.outputs where output.portType == .headphones {
+            return true
+        }
+        return false
     }
 }
 

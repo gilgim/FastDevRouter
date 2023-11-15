@@ -35,6 +35,11 @@
 		379CD42B2AF21A660052082B /* WorkHistoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 379CD42A2AF21A660052082B /* WorkHistoryModel.swift */; };
 		37AB84F52A73367A005CC217 /* WorkOutExerciseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37AB84F42A73367A005CC217 /* WorkOutExerciseViewModel.swift */; };
 		37AB84F72A736B4C005CC217 /* WorkOutExerciseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37AB84F62A736B4C005CC217 /* WorkOutExerciseModel.swift */; };
+		37E0D7162B045DA60012D434 /* SimpleWorkOutForWatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E0D7152B045DA60012D434 /* SimpleWorkOutForWatchApp.swift */; };
+		37E0D7182B045DA60012D434 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E0D7172B045DA60012D434 /* ContentView.swift */; };
+		37E0D71A2B045DA70012D434 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 37E0D7192B045DA70012D434 /* Assets.xcassets */; };
+		37E0D71D2B045DA70012D434 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 37E0D71C2B045DA70012D434 /* Preview Assets.xcassets */; };
+		37E0D7202B045DA70012D434 /* SimpleWorkOutForWatch Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 37E0D7132B045DA60012D434 /* SimpleWorkOutForWatch Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		B00168212B02463400F2FBB3 /* WatchSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00168202B02463400F2FBB3 /* WatchSessionManager.swift */; };
 		B068ED412A77EAD0007FF13F /* WorkOutRecordingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B068ED402A77EAD0007FF13F /* WorkOutRecordingView.swift */; };
 		B068ED462A8A7EE9007FF13F /* CommonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B068ED452A8A7EE9007FF13F /* CommonView.swift */; };
@@ -43,6 +48,30 @@
 		B094FDAD2AF28DB2002F67F9 /* close-sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B094FDAB2AF28DB2002F67F9 /* close-sound.mp3 */; };
 		B094FDAF2AF28E44002F67F9 /* start-sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = B094FDAE2AF28E44002F67F9 /* start-sound.mp3 */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		37E0D72C2B04891A0012D434 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 370BA9FB2A6DF27400725E2A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 37E0D7122B045DA60012D434;
+			remoteInfo = "SimpleWorkOutForWatch Watch App";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		37E0D7212B045DA70012D434 /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				37E0D7202B045DA70012D434 /* SimpleWorkOutForWatch Watch App.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		370AC8432A70ADCE0057E089 /* ExerciseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseModel.swift; sourceTree = "<group>"; };
@@ -75,6 +104,11 @@
 		379CD42A2AF21A660052082B /* WorkHistoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkHistoryModel.swift; sourceTree = "<group>"; };
 		37AB84F42A73367A005CC217 /* WorkOutExerciseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkOutExerciseViewModel.swift; sourceTree = "<group>"; };
 		37AB84F62A736B4C005CC217 /* WorkOutExerciseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkOutExerciseModel.swift; sourceTree = "<group>"; };
+		37E0D7132B045DA60012D434 /* SimpleWorkOutForWatch Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SimpleWorkOutForWatch Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		37E0D7152B045DA60012D434 /* SimpleWorkOutForWatchApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleWorkOutForWatchApp.swift; sourceTree = "<group>"; };
+		37E0D7172B045DA60012D434 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		37E0D7192B045DA70012D434 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		37E0D71C2B045DA70012D434 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		B00168202B02463400F2FBB3 /* WatchSessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchSessionManager.swift; sourceTree = "<group>"; };
 		B068ED402A77EAD0007FF13F /* WorkOutRecordingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkOutRecordingView.swift; sourceTree = "<group>"; };
 		B068ED452A8A7EE9007FF13F /* CommonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonView.swift; sourceTree = "<group>"; };
@@ -92,6 +126,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		37E0D7102B045DA60012D434 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -99,7 +140,9 @@
 			isa = PBXGroup;
 			children = (
 				370BAA052A6DF27400725E2A /* SimpleWorkOut */,
+				37E0D7142B045DA60012D434 /* SimpleWorkOutForWatch Watch App */,
 				370BAA042A6DF27400725E2A /* Products */,
+				37E0D7252B047B590012D434 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -107,6 +150,7 @@
 			isa = PBXGroup;
 			children = (
 				370BAA032A6DF27400725E2A /* SimpleWorkOut.app */,
+				37E0D7132B045DA60012D434 /* SimpleWorkOutForWatch Watch App.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -219,13 +263,13 @@
 				B094FDA92AF28DA6002F67F9 /* Sounds */,
 				B077ACB32ABC86310077510B /* LottieJson */,
 				370BAA142A6DF79500725E2A /* CoreData */,
+				B00168202B02463400F2FBB3 /* WatchSessionManager.swift */,
 				370BAA0A2A6DF27500725E2A /* Assets.xcassets */,
 				370BAA062A6DF27400725E2A /* SimpleWorkOutApp.swift */,
 				B068ED452A8A7EE9007FF13F /* CommonView.swift */,
 				370BAA082A6DF27400725E2A /* ContentView.swift */,
 				3796D5CD2A6FA454008FB26B /* Util.swift */,
 				3796D5C72A6F6B83008FB26B /* Errors.swift */,
-				B00168202B02463400F2FBB3 /* WatchSessionManager.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -238,6 +282,32 @@
 				379CD42A2AF21A660052082B /* WorkHistoryModel.swift */,
 			);
 			path = WorkHistory;
+			sourceTree = "<group>";
+		};
+		37E0D7142B045DA60012D434 /* SimpleWorkOutForWatch Watch App */ = {
+			isa = PBXGroup;
+			children = (
+				37E0D7152B045DA60012D434 /* SimpleWorkOutForWatchApp.swift */,
+				37E0D7172B045DA60012D434 /* ContentView.swift */,
+				37E0D7192B045DA70012D434 /* Assets.xcassets */,
+				37E0D71B2B045DA70012D434 /* Preview Content */,
+			);
+			path = "SimpleWorkOutForWatch Watch App";
+			sourceTree = "<group>";
+		};
+		37E0D71B2B045DA70012D434 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				37E0D71C2B045DA70012D434 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		37E0D7252B047B590012D434 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		B077ACB32ABC86310077510B /* LottieJson */ = {
@@ -267,10 +337,12 @@
 				370BA9FF2A6DF27400725E2A /* Sources */,
 				370BAA002A6DF27400725E2A /* Frameworks */,
 				370BAA012A6DF27400725E2A /* Resources */,
+				37E0D7212B045DA70012D434 /* Embed Watch Content */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				37E0D72D2B04891A0012D434 /* PBXTargetDependency */,
 			);
 			name = SimpleWorkOut;
 			packageProductDependencies = (
@@ -280,6 +352,25 @@
 			productReference = 370BAA032A6DF27400725E2A /* SimpleWorkOut.app */;
 			productType = "com.apple.product-type.application";
 		};
+		37E0D7122B045DA60012D434 /* SimpleWorkOutForWatch Watch App */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 37E0D7242B045DA70012D434 /* Build configuration list for PBXNativeTarget "SimpleWorkOutForWatch Watch App" */;
+			buildPhases = (
+				37E0D70F2B045DA60012D434 /* Sources */,
+				37E0D7102B045DA60012D434 /* Frameworks */,
+				37E0D7112B045DA60012D434 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "SimpleWorkOutForWatch Watch App";
+			packageProductDependencies = (
+			);
+			productName = "SimpleWorkOutForWatch Watch App";
+			productReference = 37E0D7132B045DA60012D434 /* SimpleWorkOutForWatch Watch App.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -287,11 +378,14 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1430;
-				LastUpgradeCheck = 1430;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
 				TargetAttributes = {
 					370BAA022A6DF27400725E2A = {
 						CreatedOnToolsVersion = 14.3;
+					};
+					37E0D7122B045DA60012D434 = {
+						CreatedOnToolsVersion = 15.0;
 					};
 				};
 			};
@@ -312,6 +406,7 @@
 			projectRoot = "";
 			targets = (
 				370BAA022A6DF27400725E2A /* SimpleWorkOut */,
+				37E0D7122B045DA60012D434 /* SimpleWorkOutForWatch Watch App */,
 			);
 		};
 /* End PBXProject section */
@@ -326,6 +421,15 @@
 				B094FDAF2AF28E44002F67F9 /* start-sound.mp3 in Resources */,
 				370BAA0B2A6DF27500725E2A /* Assets.xcassets in Resources */,
 				B077ACB52ABC86430077510B /* runningAnimation.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		37E0D7112B045DA60012D434 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				37E0D71D2B045DA70012D434 /* Preview Assets.xcassets in Resources */,
+				37E0D71A2B045DA70012D434 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -368,7 +472,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		37E0D70F2B045DA60012D434 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				37E0D7182B045DA60012D434 /* ContentView.swift in Sources */,
+				37E0D7162B045DA60012D434 /* SimpleWorkOutForWatchApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		37E0D72D2B04891A0012D434 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 37E0D7122B045DA60012D434 /* SimpleWorkOutForWatch Watch App */;
+			targetProxy = 37E0D72C2B04891A0012D434 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		370BAA0F2A6DF27500725E2A /* Debug */ = {
@@ -488,6 +609,7 @@
 		370BAA122A6DF27500725E2A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
@@ -518,6 +640,7 @@
 		370BAA132A6DF27500725E2A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
@@ -545,6 +668,75 @@
 			};
 			name = Release;
 		};
+		37E0D7222B045DA70012D434 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"SimpleWorkOutForWatch Watch App/Preview Content\"";
+				DEVELOPMENT_TEAM = AZQ9YD7HMA;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = SimpleWorkOutForWatch;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.SimpleWorkOut;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.SimpleWorkOut.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 10.0;
+			};
+			name = Debug;
+		};
+		37E0D7232B045DA70012D434 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"SimpleWorkOutForWatch Watch App/Preview Content\"";
+				DEVELOPMENT_TEAM = AZQ9YD7HMA;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = SimpleWorkOutForWatch;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.SimpleWorkOut;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.SimpleWorkOut.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 10.0;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -562,6 +754,15 @@
 			buildConfigurations = (
 				370BAA122A6DF27500725E2A /* Debug */,
 				370BAA132A6DF27500725E2A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		37E0D7242B045DA70012D434 /* Build configuration list for PBXNativeTarget "SimpleWorkOutForWatch Watch App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				37E0D7222B045DA70012D434 /* Debug */,
+				37E0D7232B045DA70012D434 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
